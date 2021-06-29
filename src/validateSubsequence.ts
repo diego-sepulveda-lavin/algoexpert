@@ -50,25 +50,30 @@ export function isValidSubsequenceNotOptimal(array: number[], sequence: number[]
   }
 }
 
+// Let's use pointers to traverse both arrays. With these we can also check the correct order of the subsequence in the sequence
 /*
 const array = [5, 1, 22, 25, 6, -1, 8, 10];
 const sequence = [1, 6, -1, 10];
 */
 
-// Let's use pointers to traverse both arrays. With these we can also check the correct order of the subsequence in the sequence
 export function isValidSubsequence(array: number[], sequence: number[]): boolean {
   let arrayPointer = 0;
   let sequencePointer = 0;
-
+  // iterate over both arrays until both are at the end
   while (sequencePointer < sequence.length && arrayPointer < array.length) {
+    // check values in both arrays
     if (sequence[sequencePointer] === array[arrayPointer]) {
+      // if value is found on main array, we move to the next number in subsequence and main array
       sequencePointer++;
       arrayPointer++;
     } else {
+      //if the value is not the same, we continue with next value in main array
       arrayPointer++;
     }
   }
 
+  // if we managed to iterate the whole subsequence array, it means we found all the values in the main array
+  // in the right order
   return sequencePointer === sequence.length;
 }
 
@@ -77,5 +82,5 @@ console.log(isValidSubsequenceNotOptimal(array, sequence)); // O(n²)T at best
 console.timeEnd("isValidSubsequenceNotOptimal");
 
 console.time("isValidSubsequence");
-console.log(isValidSubsequence(array, sequence)); // O(n)T | O(1)S 
+console.log(isValidSubsequence(array, sequence)); // O(n)T | O(1)S
 console.timeEnd("isValidSubsequence");
