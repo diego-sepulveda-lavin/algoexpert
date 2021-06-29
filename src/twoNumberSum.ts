@@ -100,8 +100,6 @@ first we sort the array and then we create 2 pointers, one starts at index 0 and
 depending if the number is bigger or smaller than sumTarget, we move the corresponding pointer to the left or right
 */
 
-const asd = [-103, -100, -88, -22, -17, -7, -6, -5, -4, -1, 1, 2, 3, 4, 5, 6, 8, 11, 13, 15, 21, 22, 45];
-
 export function twoNumberSumWithPointers(array: number[], targetSum: number): [number, number] | [] {
   const sortedArr = [...array];
   sortedArr.sort((a, b) => a - b);
