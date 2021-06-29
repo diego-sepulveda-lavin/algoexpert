@@ -60,12 +60,11 @@ export function twoNumberSum(array: number[], targetSum: number): [number, numbe
 }
 
 export function twoNumberSumImproved(array: number[], targetSum: number) {
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     for (let j = i + 1; j < array.length; j++) {
       const currentINumber = array[i];
       const currentJNumber = array[j];
-      const checkSum = currentINumber + currentJNumber === targetSum ? true : false;
-      if (checkSum) {
+      if (currentINumber + currentJNumber === targetSum) {
         return [currentINumber, currentJNumber];
       }
     }
@@ -122,17 +121,17 @@ export function twoNumberSumWithPointers(array: number[], targetSum: number): [n
 }
 
 console.time("twoNumberSum");
-console.log(twoNumberSum(numbers, target)); //O(n²)T
+console.log(twoNumberSum(numbers, target)); //O(n²)T and O(1)S
 console.timeEnd("twoNumberSum");
 
 console.time("twoNumberSumImproved");
-console.log(twoNumberSumImproved(numbers, target)); //O(n²)T
+console.log(twoNumberSumImproved(numbers, target)); //O(n²)T and O(1)S
 console.timeEnd("twoNumberSumImproved");
 
 console.time("twoNumberSumWithHashTable");
-console.log(twoNumberSumWithHashTable(numbers, target)); //O(n)T
+console.log(twoNumberSumWithHashTable(numbers, target)); //O(n)T and O(n)S
 console.timeEnd("twoNumberSumWithHashTable");
 
 console.time("twoNumberSumWithPointers");
-console.log(twoNumberSumWithPointers(numbers, target)); //O(n*log(n))T
+console.log(twoNumberSumWithPointers(numbers, target)); //O(n*log(n))T and O(1)S
 console.timeEnd("twoNumberSumWithPointers");
