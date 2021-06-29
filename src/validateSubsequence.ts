@@ -22,7 +22,7 @@ const array = [5, 1, 22, 25, 6, -1, 8, 10];
 const sequence = [1, 6, -1, 10];
 
 //passes 22 of 23 tests
-export function isValidSubsequence(array: number[], sequence: number[]) {
+export function isValidSubsequenceNotOptimal(array: number[], sequence: number[]): boolean {
   if (sequence.length > array.length) {
     return false;
   }
@@ -50,6 +50,32 @@ export function isValidSubsequence(array: number[], sequence: number[]) {
   }
 }
 
-console.time("isValidSubsequenceImp");
-console.log(isValidSubsequence(array, sequence)); // O(n²)T at best
-console.timeEnd("isValidSubsequenceImp");
+/*
+const array = [5, 1, 22, 25, 6, -1, 8, 10];
+const sequence = [1, 6, -1, 10];
+*/
+
+// Let's use pointers to traverse both arrays. With these we can also check the correct order of the subsequence in the sequence
+export function isValidSubsequence(array: number[], sequence: number[]): boolean {
+  let arrayPointer = 0;
+  let sequencePointer = 0;
+
+  while (sequencePointer < sequence.length && arrayPointer < array.length) {
+    if (sequence[sequencePointer] === array[arrayPointer]) {
+      sequencePointer++;
+      arrayPointer++;
+    } else {
+      arrayPointer++;
+    }
+  }
+
+  return sequencePointer === sequence.length;
+}
+
+console.time("isValidSubsequenceNotOptimal");
+console.log(isValidSubsequenceNotOptimal(array, sequence)); // O(n²)T at best
+console.timeEnd("isValidSubsequenceNotOptimal");
+
+console.time("isValidSubsequence");
+console.log(isValidSubsequence(array, sequence)); // O(n)T | O(1)S 
+console.timeEnd("isValidSubsequence");
