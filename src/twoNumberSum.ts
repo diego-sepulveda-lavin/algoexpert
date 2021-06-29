@@ -15,20 +15,19 @@
 
 */
 
-/* Write whatever you want here.
+const numbers = [3, 5, -4, 8, 11, 1, -1, 6, 2, 4, -5, -6, 15, 21, 13, -7, 22, -22, 45, -88, -17, -103, -100];
+const target = -203;
 
-// recieves a NON EMPTY array of DISTINCT
-[3, 5,-4, 8, 11, 1, -1, 6]
-// recieves a target sum number
-10
+/*
+DOUBLE FOR LOOP
+recieves a NON EMPTY array of DISTINCT [3, 5,-4, 8, 11, 1, -1, 6]
+recieves a target sum number 10
 
-// if TWO numbers in the array sum to the target (10), return an array with the numbers
-[11,-1]
-// if there are not two numbers summing to the target, return an empty array
-[]
+if TWO numbers in the array sum to the target (10), return an array with the numbers [11,-1]
+if there are not two numbers summing to the target, return an empty array []
 
-// you can't sum the same number
-// you can asumme there will be at most one pair summing to the target
+you can't sum the same number
+you can asumme there will be at most one pair summing to the target
 
 3 + 3 NOT ALLOWED
 3 + 5 = 10 ?
@@ -39,9 +38,6 @@
 ....
 11 + -1 = 10 ? TRUE RETURN [11, -1]
 IF NONE PAIR SUM UP RETURN [] */
-
-const numbers = [3, 5, -4, 8, 11, 1, -1, 6, 2, 4, -5, -6, 15, 21, 13, -7, 22, -22, 45, -88, -17, -103, -100];
-const target = -203;
 
 export function twoNumberSum(array: number[], targetSum: number): [number, number] | [] {
   for (let i = 0; i < array.length; i++) {
@@ -64,7 +60,6 @@ export function twoNumberSum(array: number[], targetSum: number): [number, numbe
 }
 
 export function twoNumberSumImproved(array: number[], targetSum: number) {
-  // Write your code here.
   for (let i = 0; i < array.length; i++) {
     for (let j = i + 1; j < array.length; j++) {
       const currentINumber = array[i];
@@ -79,6 +74,7 @@ export function twoNumberSumImproved(array: number[], targetSum: number) {
 }
 
 /* 
+USING A HASHTABLE AND EQUATION
 We know the array [3, 5, -4, 8, 11, 1, -1, 6] and the target sum 10
 So we can do the following equation x + y = 10, 
 being x the current number in the array we are looping, y the needed number and 10 the target. If we solve the equation, we get
@@ -97,6 +93,36 @@ export function twoNumberSumWithHashTable(array: number[], targetSum: number): [
   }
   return [];
 }
+
+/* 
+USING A SORTED ARRAY WITH 2 POINTERS
+first we sort the array and then we create 2 pointers, one starts at index 0 and the other at the end
+depending if the number is bigger or smaller than sumTarget, we move the corresponding pointer to the left or right
+*/
+
+const asd = [-103, -100, -88, -22, -17, -7, -6, -5, -4, -1, 1, 2, 3, 4, 5, 6, 8, 11, 13, 15, 21, 22, 45];
+
+export function twoNumberSumWithPointers(array: number[], targetSum: number): [number, number] | [] {
+  const sortedArr = [...array];
+  sortedArr.sort((a, b) => a - b);
+  let leftPointer = 0;
+  let rightPointer = sortedArr.length - 1;
+
+  while (leftPointer !== rightPointer) {
+    const leftNumber = sortedArr[leftPointer];
+    const rightNumber = sortedArr[rightPointer];
+    const checkSum = leftNumber + rightNumber;
+    if (checkSum === targetSum) {
+      return [leftNumber, rightNumber];
+    } else if (checkSum > targetSum) {
+      rightPointer -= 1;
+    } else {
+      leftPointer += 1;
+    }
+  }
+  return [];
+}
+
 console.time("twoNumberSum");
 console.log(twoNumberSum(numbers, target)); //O(n²)T
 console.timeEnd("twoNumberSum");
@@ -108,3 +134,7 @@ console.timeEnd("twoNumberSumImproved");
 console.time("twoNumberSumWithHashTable");
 console.log(twoNumberSumWithHashTable(numbers, target)); //O(n)T
 console.timeEnd("twoNumberSumWithHashTable");
+
+console.time("twoNumberSumWithPointers");
+console.log(twoNumberSumWithPointers(numbers, target)); //O(n*log(n))T
+console.timeEnd("twoNumberSumWithPointers");
