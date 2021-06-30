@@ -77,6 +77,11 @@ export function isValidSubsequence(array: number[], sequence: number[]): boolean
   return sequencePointer === sequence.length;
 }
 
+export function isValidSubsequence2(array: number[], sequence: number[]): boolean {
+  let sequencePointer = 0;
+  array.forEach((number) => sequence[sequencePointer] === number && sequencePointer++);
+  return sequencePointer === sequence.length;
+}
 console.time("isValidSubsequenceNotOptimal");
 console.log(isValidSubsequenceNotOptimal(array, sequence)); // O(n²)T at best
 console.timeEnd("isValidSubsequenceNotOptimal");
@@ -84,3 +89,7 @@ console.timeEnd("isValidSubsequenceNotOptimal");
 console.time("isValidSubsequence");
 console.log(isValidSubsequence(array, sequence)); // O(n)T | O(1)S
 console.timeEnd("isValidSubsequence");
+
+console.time("isValidSubsequence2");
+console.log(isValidSubsequence2(array, sequence)); // O(n)T | O(1)S
+console.timeEnd("isValidSubsequence2");
