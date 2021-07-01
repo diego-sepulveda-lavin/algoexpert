@@ -85,4 +85,32 @@ export function tournamentWinner(competitions: string[][], results: number[]): s
   return winner;
 }
 
-console.log(tournamentWinner(competitions, results));
+export function tournamentWinnerImproved(competitions: string[][], results: number[]): string {
+  let winner = "";
+  //create empty scoreBoard
+  let scoreBoard: { [team: string]: number } = { currentBestTeam: 0 };
+  //iterate over competitions array
+  for (let i = 0; i < competitions.length; i++) {
+    const match = competitions[i];
+    // if results[i] == 1 team at index 0 wins, if results[i] == 0 team at index 1 wins
+    if (results[i] === 1) {
+      // team index 0 in Scoreboard ? if yes increase 3 points, else init 3 points
+      match[0] in scoreBoard ? (scoreBoard[match[0]] += 3) : (scoreBoard[match[0]] = 3);
+      // if not current winner, set winner to current match winner
+      !winner && (winner = match[0]);
+      //check if current winner score is higher than leader score and update winner
+      scoreBoard[match[0]] > scoreBoard[winner] && (winner = match[0]);
+    } else {
+      // team index 1 in Scoreboard ? if yes increase 3 points, else init 3 points
+      match[1] in scoreBoard ? (scoreBoard[match[1]] += 3) : (scoreBoard[match[1]] = 3);
+      // if not current winner, set winner to current match winner
+      !winner && (winner = match[1]);
+      //check if current winner score is higher than leader score and update winner
+      scoreBoard[match[1]] > scoreBoard[winner] && (winner = match[1]);
+    }
+  }
+  return winner;
+}
+
+console.log(tournamentWinnerImproved(competitions, results)); //O(N)T
+console.log(tournamentWinner(competitions, results)); // O(2*N)T
