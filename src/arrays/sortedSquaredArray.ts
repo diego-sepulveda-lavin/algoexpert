@@ -15,10 +15,10 @@
     [1, 4, 9, 25, 36, 64, 81]
 */
 
-const numbers = [1, 2, 4, 3];
+const numbers = [-7, -4, -1, 0, 2, 5, 9];
 
 export function sortedSquaredArray(array: number[]): number[] {
-  return array.map((number) => number ** 2).sort((a, b) => a - b);
+  return array.map((number) => number ** 2).sort((a, b) => a - b); // Map O(n)T + Sort O(nlog(n))T = O(nlog(n))T
 }
 
 export function sortedSquaredArrayManual(array: number[]): number[] {
@@ -49,9 +49,33 @@ export function sortedSquaredArrayManual(array: number[]): number[] {
 
   return resultArray;
 }
+//const numbers = [-7, -4, -1, 0, 2, 5, 9];
+//const sorted = [0, 0, 0, 0, 0, 0, 0];
+export function sortedSquaredArrayManual2(array: number[]): number[] {
+  const sortedArray = new Array(array.length).fill(0);
+  let leftPointer = 0;
+  let rightPointer = array.length - 1;
+
+  for (let i = sortedArray.length - 1; i >= 0; i--) {
+    if (Math.abs(array[leftPointer]) < Math.abs(array[rightPointer])) {
+      sortedArray[i] = array[rightPointer] * array[rightPointer];
+      rightPointer--;
+    } else {
+      sortedArray[i] = array[leftPointer] * array[leftPointer];
+      leftPointer++;
+    }
+  }
+  return sortedArray;
+}
 
 console.time("sortedSquaredArray");
 console.log(sortedSquaredArray(numbers));
 console.timeEnd("sortedSquaredArray");
 
+console.time("sortedSquaredArrayManual");
 console.log(sortedSquaredArrayManual(numbers));
+console.timeEnd("sortedSquaredArrayManual");
+
+console.time("sortedSquaredArrayManual2");
+console.log(sortedSquaredArrayManual2(numbers));
+console.timeEnd("sortedSquaredArrayManual2");
