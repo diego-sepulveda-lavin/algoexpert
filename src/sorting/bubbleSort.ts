@@ -12,9 +12,9 @@
     [2, 3, 5, 5, 6, 8, 9]
 */
 
-const myArr = [8, 5, 2, 9, 5, 6, 3];
+const myArr = [-4, 5, 10, 8, -10, -6, -4, -2, -5, 3, 5, -4, -5, -1, 1, 6, -7, -6, -7, 8];
 
-export function bubbleSort(array: number[]) {
+export function bubbleSort(array: number[]): number[] {
   let isSorted = false; //assume array is not sorted
   let p1 = 0; // init pointer1 at index 0
   let p2 = p1 + 1; // init pointer 2 at index 1
@@ -48,6 +48,9 @@ export function bubbleSort(array: number[]) {
       //if no swaps were made, our array is sorted so we can finish looping
       isSorted = true;
     }
+    // As we compare each number, we can asume the last element of the array is the greatest,
+    // so we can avoid to compare the whole array again
+    arrLen--;
   }
 
   return array;
