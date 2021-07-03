@@ -56,7 +56,7 @@ export function bubbleSort(array: number[]): number[] {
   return array;
 }
 
-// Best: O(n) time | O(1)T
-// Average: O(n²) time | O(1)T
-// Worst: O(n²) time | O(1)T
+// Best: O(n) time | O(1)S
+// Average: O(n²) time | O(1)S
+// Worst: O(n²) time | O(1)S
 console.log(bubbleSort(myArr));
