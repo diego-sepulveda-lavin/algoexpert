@@ -40,6 +40,18 @@ export function insertionSort(array: number[]) {
 
   return array;
 }
+export function insertionSortImproved(array: number[]) {
+  // Iterate from 2nd position until end of array
+  for (let i = 1; i < array.length; i++) {
+    let j = i; //create a pointer
+    //while the current number is bigger than the previous one swap it checking until your reach the start of the array
+    while (array[j] < array[j - 1] && j > 0) {
+      swap(j - 1, j, array);
+      j--;
+    }
+  }
+  return array;
+}
 
 function swap(i: number, j: number, array: number[]) {
   // this swaps two numbers in a given array
@@ -51,4 +63,5 @@ function swap(i: number, j: number, array: number[]) {
 // Best: O(n) time | O(1)S
 // Average: O(n²) time | O(1)S
 // Worst: O(n²) time | O(1)S
-console.log(insertionSort(array));
+//console.log(insertionSort(array));
+console.log(insertionSortImproved(array));
