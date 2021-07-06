@@ -1,13 +1,25 @@
+class Node {
+  constructor(value, next) {
+    this.value = value;
+    this.next = next;
+  }
+}
+
 class LinkedList {
   constructor() {
     this.head = null;
     this.length = 0;
   }
 
-  insertAtHead(data) {
-    const newNode = new LinkedListNode(data, this.head);
+  insertAtHead(value) {
+    const newNode = new Node(value, this.head);
     this.head = newNode;
     this.length++;
+  }
+
+  removeHead() {
+    this.head = this.head.next;
+    this.length--;
   }
 
   getByIndex(index) {
@@ -22,41 +34,53 @@ class LinkedList {
   insertAtIndex(index, value) {
     if (index === 0) return this.insertAtHead(value);
     const prev = this.getByIndex(index - 1);
-    if (prev == null) return null;
-    prev.next = new LinkedListNode(value, prev.next);
+    if (prev === null) return null;
+    const newNode = new Node(value, prev.next);
+    prev.next = newNode;
     this.length++;
   }
 
   removeAtIndex(index) {
     if (index === 0) return this.removeHead();
     const prev = this.getByIndex(index - 1);
-    if (prev == null) return null;
+    if (prev === null) return null;
     prev.next = prev.next.next;
     this.length--;
   }
 
-  removeHead() {
-    this.head = this.head.next;
-    this.length--;
-  }
-
   describe() {
-    let output = "";
     let current = this.head;
-    while (current) {
+    let output = "";
+    for (let i = 0; i < this.length; i++) {
       output = `${output}${current.value} -> `;
       current = current.next;
     }
-    console.log(`${output}null`);
+    console.log(`${output}${null}`);
+    console.log(`Length: ${this.length}`);
   }
 }
 
-class LinkedListNode {
-  constructor(value, next) {
-    this.value = value;
-    this.next = next;
-  }
-}
+const ll = new LinkedList();
+
+ll.insertAtHead(10);
+// 10 -> null
+
+ll.insertAtHead(44);
+// 44 -> 10 -> null
+
+ll.insertAtHead(56);
+// 56 -> 44 -> 10 -> null
+
+ll.insertAtIndex(1, 99);
+// 56 -> 99 -> 44 -> 10 -> null
+
+ll.removeAtIndex(0);
+// 99 -> 44 -> 10 -> null
+
+ll.removeAtIndex(1);
+// 99 -> 10 -> null
+
+ll.describe();
 
 LinkedList.fromValues = function (...values) {
   const ll = new LinkedList();
