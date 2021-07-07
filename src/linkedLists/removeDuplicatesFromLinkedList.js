@@ -17,27 +17,51 @@
 
 // This is an input class. Do not edit.
 class LinkedList {
-  value: number;
-  next: LinkedList | null;
-
-  constructor(value: number) {
+  constructor(value) {
     this.value = value;
     this.next = null;
   }
+  addMany(values) {
+    let current = this;
+    while (current.next !== null) {
+      current = current.next;
+    }
+    for (const value of values) {
+      current.next = new LinkedList(value);
+      current = current.next;
+    }
+    return this;
+  }
+
+  getNodesInArray() {
+    const nodes = [];
+    let current = this;
+    while (current !== null) {
+      nodes.push(current.value);
+      current = current.next;
+    }
+    return nodes;
+  }
 }
 
-function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
-  let leftPointer: LinkedList | null = linkedList; //init a left pointer
+function removeDuplicatesFromLinkedList(linkedList) {
+  let leftPointer = linkedList; //init a left pointer
   // iterate until end of linkedList
   while (leftPointer !== null) {
-    let rightPointer: LinkedList | null = leftPointer.next; //init a second pointer which starts to the right of leftPointer
+    let rightPointer = leftPointer.next; //init a second pointer which starts to the right of leftPointer
     // Do while right pointer does not reach end of Linked List and left value is equal to right value
     while (rightPointer != null && leftPointer.value === rightPointer.value) {
       rightPointer = rightPointer.next; //move right pointer
     }
     // if left and right values are different, we make left pointer to point towards right current element, eliminating duplicated elements
-    leftPointer.next = rightPointer;
+    leftPointer.next = rightPointer; 
     leftPointer = rightPointer; // we move left pointer where right pointer is, and start again with next value
   }
   return linkedList;
 }
+
+const input = new LinkedList(1).addMany([1, 3, 4, 4, 4, 5, 6, 6]);
+const expected = new LinkedList(1).addMany([3, 4, 5, 6]);
+
+const actual = removeDuplicatesFromLinkedList(input);
+console.log(actual);
