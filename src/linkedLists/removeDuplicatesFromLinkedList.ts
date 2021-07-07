@@ -26,6 +26,7 @@ class LinkedList {
   }
 }
 
+// O(n)T
 function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
   let leftPointer: LinkedList | null = linkedList; //init a left pointer
   // iterate until end of linkedList
