@@ -22,7 +22,7 @@ const target = 111;
 export function binarySearch(array: number[], target: number): number {
   let low = 0; // ini a pointer at the start of the array
   let high = array.length - 1; // init a pointer at the end of array
-  let mid: number; // declar a mid pointer
+  let mid: number; // declare a mid pointer
 
   // do while low pointer is smaller or equal than high pointer
   while (low <= high) {
@@ -43,4 +43,4 @@ export function binarySearch(array: number[], target: number): number {
   return -1;
 }
 
-console.log(binarySearch(array, target)); // O(log(n))T
+console.log(binarySearch(array, target)); // O(log(n))T O(1)S
