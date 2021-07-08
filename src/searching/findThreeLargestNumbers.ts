@@ -29,8 +29,8 @@ export function findThreeLargestNumbers(array: number[]) {
     }
     // check if right pointer reached the end of array or beyond limit
     if (rightPointer === array.length - 1 || rightPointer > array.length - 1) {
-      //if so, push the current element to result array
-      resultArr.push(array[currGreaterIdx]);
+      //if so, insert the current element to result array
+      resultArr.unshift(array[currGreaterIdx]);
       // remove current greater element from input array
       array.splice(currGreaterIdx, 1);
       // reset current greater index and rigth pointer to start again with next number
@@ -41,7 +41,7 @@ export function findThreeLargestNumbers(array: number[]) {
     rightPointer++;
   }
 
-  return resultArr.sort((a, b) => a - b); // sort array
+  return resultArr; // sort array
 }
 
 //result = [18, 141, 541];
