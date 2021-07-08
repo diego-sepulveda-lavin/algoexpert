@@ -10,9 +10,6 @@
     // fib = 0, 1, 1, 2, 3, 5, 8, 13   
 */
 
-//   n = 1, 2, 3, 4, 5, 6, 7, 8
-// fib = 1, 1, 2, 3, 5, 8, 13, 21
-
 interface MemoI {
   [n: number]: number;
 }
@@ -27,4 +24,18 @@ export function getNthFib(n: number, memo: MemoI = {}): number {
   return memo[n];
 }
 
-console.log(getNthFib(3));
+export function getNthFibIter(n: number): number {
+  if (n < 2) return 0; // case n <= 1 should return 0
+
+  let workingArray = [0, 1]; // init with first fib nums
+  for (let i = 2; i < n; i++) {
+    let newFib = workingArray[0] + workingArray[1];
+    // here we swap
+    workingArray[0] = workingArray[1];
+    workingArray[1] = newFib;
+  }
+  return workingArray[1];
+}
+
+console.log(getNthFib(100)); // O(n) time and O(n) space
+console.log(getNthFibIter(100)); // O(n) time and O(1) space
