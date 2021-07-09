@@ -49,12 +49,12 @@ export function caesarCipherEncryptor(string: string, key: number) {
   ];
 
   // recalculate key so we always get a number between 0 and the lenth of the alphabet - 1
-  key = key % alphabet.length;
+  const newKey = key % alphabet.length;
 
   // prepare an empty dictionary
   let dictionary: { [index: string]: string } = {};
   let ch1 = 0; // create a pointer to map dictionary
-  let ch2 = ch1 + key; // create another pointer to map dictionary which is moved key times
+  let ch2 = ch1 + newKey; // create another pointer to map dictionary which is moved key times
 
   // iterate over alphabet to map dictionary
   while (ch1 <= alphabet.length - 1) {
@@ -79,4 +79,4 @@ export function caesarCipherEncryptor(string: string, key: number) {
   return encryptedMessage.join("");
 }
 
-console.log(caesarCipherEncryptor(string, key));
+console.log(caesarCipherEncryptor(string, key)); //O(n)Time and O(n)Space
