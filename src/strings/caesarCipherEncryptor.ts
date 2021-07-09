@@ -19,34 +19,7 @@ const key = 2;
 
 export function caesarCipherEncryptor(string: string, key: number) {
   //define our alphabet
-  let alphabet = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-  ];
+  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
 
   // recalculate key so we always get a number between 0 and the lenth of the alphabet - 1
   const newKey = key % alphabet.length;
