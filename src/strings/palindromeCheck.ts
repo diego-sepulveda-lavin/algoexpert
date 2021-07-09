@@ -15,7 +15,7 @@ const string2 = "a"; // true
 const string3 = "aa"; // true
 const string4 = "ab"; // false
 
-// O(n)T O(1)S
+// O(n)T and O(1)S
 export function isPalindrome(string: string): boolean {
   let left = 0; // init left pointer
   let right = string.length - 1; // init right pointer at last string's position
@@ -33,4 +33,14 @@ export function isPalindrome(string: string): boolean {
   return true;
 }
 
-console.log(isPalindrome(string3));
+// O(n²)T because you need to loop and recreate reversedString for every iteration. O(n)S
+export function isPalindromeNotOptimal(string: string): boolean {
+  let reversedString = "";
+  for (let i = string.length - 1; i >= 0; i--) {
+    reversedString += string[i];
+  }
+  return reversedString === string;
+}
+
+console.log(isPalindrome(string));
+console.log(isPalindromeNotOptimal(string));
