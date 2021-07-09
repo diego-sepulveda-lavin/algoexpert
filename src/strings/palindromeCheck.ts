@@ -15,13 +15,13 @@ const string2 = "a"; // true
 const string3 = "aa"; // true
 const string4 = "ab"; // false
 
-// O(n)T and O(1)S
+// O(n/2)T => O(n)T and O(1)S
 export function isPalindrome(string: string): boolean {
   let left = 0; // init left pointer
   let right = string.length - 1; // init right pointer at last string's position
 
   //iterate until both pointers reach center of the string
-  while (left <= right) {
+  while (left < right) {
     //if current char at left is not equal to current chat at right, is not a palindrome so return false
     if (string[left] !== string[right]) {
       return false;
@@ -35,10 +35,12 @@ export function isPalindrome(string: string): boolean {
 
 // O(n²)T because you need to loop and recreate reversedString for every iteration. O(n)S
 export function isPalindromeNotOptimal(string: string): boolean {
-  let reversedString = "";
+  let reversedString = ""; // init an empty string
+  //iterate backwards and append current char to reversed string
   for (let i = string.length - 1; i >= 0; i--) {
     reversedString += string[i];
   }
+  //compare both strings
   return reversedString === string;
 }
 
