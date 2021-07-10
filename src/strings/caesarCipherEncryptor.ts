@@ -25,7 +25,7 @@ export function caesarCipherEncryptor(string: string, key: number) {
   const newKey = key % alphabet.length;
 
   // prepare an empty dictionary
-  let dictionary: { [index: string]: string } = {};
+  let dictionary: { [letter: string]: string } = {};
   let ch1 = 0; // create a pointer to map dictionary
   let ch2 = ch1 + newKey; // create another pointer to map dictionary which is moved key times
 
@@ -42,7 +42,8 @@ export function caesarCipherEncryptor(string: string, key: number) {
     ch1++;
     ch2++;
   }
-  // once dictionary is mapped, create empty array where encrypted letters will be pushed to avoid O(n²)
+  // once dictionary is mapped, create empty array where encrypted letters will be pushed to avoid O(n²) on 
+  // forloop  doing string += encryptedString due string must be reconstructed each time we add something
   let encryptedMessage = [];
   // for each letter in the string message, push to encryptedMessage array the corresponding mapped letter
   for (const letter of string) {
@@ -52,4 +53,4 @@ export function caesarCipherEncryptor(string: string, key: number) {
   return encryptedMessage.join("");
 }
 
-console.log(caesarCipherEncryptor(string, key)); //O(n)Time and O(n)Space
+console.log(caesarCipherEncryptor(string, key)); //O(n)Time or O(alphabet)T, depending which is greater and O(n)Space
