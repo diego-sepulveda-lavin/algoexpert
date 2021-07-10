@@ -42,6 +42,26 @@ export function generateDocument(characters: string, document: string) {
   // if false wasn't hit before, then is possible to build document with given characters
   return true;
 }
-// Time: O(3*n) => 0(n)
-// Space: O(2*n) => 0(n)
+// Time: O(n+m+l) => 0(n)
+// Space: O(n+m) => 0(n)
 console.log(generateDocument(characters, document));
+
+export function generateDocumentImp(characters: string, document: string) {
+  let charsMap: { [char: string]: number } = {}; // init empty obj to map chars
+
+  for (let char of characters) {
+    char in charsMap ? (charsMap[char] += 1) : (charsMap[char] = 1); // iterate characters string to map charsMap
+  }
+
+  for (let char of document) {
+    if (!(char in charsMap) || charsMap[char] === 0) return false; // check if char is in charsMap or if is equal to zero, if so return false
+    charsMap[char]--; // otherwise decrease the count of char in charsMap
+  }
+
+  // if false wasn't hit before, then is possible to build document with given characters
+  return true;
+}
+
+// Time: O(n+m) => 0(n)
+// Space: O(n) => 0(n)
+console.log(generateDocumentImp(characters, document));
