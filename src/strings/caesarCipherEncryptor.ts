@@ -17,9 +17,9 @@
 const string = "xyz";
 const key = 2;
 
-export function caesarCipherEncryptor(string: string, key: number) {
+export function caesarCipherEncryptor(string: string, key: number): string {
   //define our alphabet
-  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
+  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
   // recalculate key so we always get a number between 0 and the lenth of the alphabet - 1
   const newKey = key % alphabet.length;
@@ -42,7 +42,7 @@ export function caesarCipherEncryptor(string: string, key: number) {
     ch1++;
     ch2++;
   }
-  // once dictionary is mapped, create empty array where encrypted letters will be pushed to avoid O(n²) on 
+  // once dictionary is mapped, create empty array where encrypted letters will be pushed to avoid O(n²) on
   // forloop  doing string += encryptedString due string must be reconstructed each time we add something
   let encryptedMessage = [];
   // for each letter in the string message, push to encryptedMessage array the corresponding mapped letter

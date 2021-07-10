@@ -21,7 +21,7 @@
 */
 const string = "AAAAAAAAAAAAABBCCCCDD";
 
-export function runLengthEncoding(string: string) {
+export function runLengthEncoding(string: string):string {
   let currentElement = null; // init an element container
   let elementCounter = 0; // init an element counter
   let outputArr: string[] = []; // use an array to avoid n² when string reconstructing is needed inside foor loop
