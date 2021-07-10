@@ -42,5 +42,6 @@ export function generateDocument(characters: string, document: string) {
   // if false wasn't hit before, then is possible to build document with given characters
   return true;
 }
-
+// Time: O(3*n) => 0(n)
+// Space: O(2*n) => 0(n)
 console.log(generateDocument(characters, document));
