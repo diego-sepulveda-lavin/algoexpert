@@ -52,4 +52,34 @@ export function classPhotos(redShirtHeights: number[], blueShirtHeights: number[
   return allRedTaller || allBlueTaller; // if all red students are not taller or all blue students are taller, photo cannot be taken
 }
 
+export function classPhotos2(redShirtHeights: number[], blueShirtHeights: number[]) {
+  const sortingFunc = (a: number, b: number) => b - a;
+  redShirtHeights.sort(sortingFunc); // sort red students from tallest to smallest
+  blueShirtHeights.sort(sortingFunc); // sort blue students from tallest to smallest
+
+  // Define the Front row according to tallest student
+  let colorInFrontRow = redShirtHeights[0] > blueShirtHeights[0] ? "BLUE" : "RED";
+
+  for (let i = 0; i < redShirtHeights.length; i++) {
+    const redStudentHeight = redShirtHeights[i];
+    const blueStudentHeight = blueShirtHeights[i];
+    if (colorInFrontRow === "BLUE") {
+      // if tallest student is in red row, it can't be a current blue taller than current red
+      if (redStudentHeight <= blueStudentHeight) return false;
+    } else {
+      // if tallest student is in blue row, it can't be a current red taller than current blue
+      if (redStudentHeight >= blueStudentHeight) return false;
+    }
+  }
+
+  // in case no return was hit before, it is possible to take the photo
+  return true;
+}
+
+// Time: O(n*log(n)) due to sorting > O(n)
+// Space: O(1)
 console.log(classPhotos(redShirtHeights, blueShirtHeights));
+
+// Time: O(n*log(n)) due to sorting > O(n)
+// Space: O(1)
+console.log(classPhotos2(redShirtHeights, blueShirtHeights));
