@@ -30,20 +30,50 @@
 const queries = [3, 2, 1, 2, 6];
 const queries2 = [1, 2, 3];
 
-export function minimumWaitingTime(array: number[]): number {
-  array.sort((a, b) => a - b); // first sort array to assure longest query will be executed at last
+export function minimumWaitingTime(queriesSrc: number[], sorted: boolean = false): number {
+  let queries = [...queriesSrc]; // copy to avoit mutate source array
+  if (!sorted) {
+    queries.sort((a, b) => a - b); // first sort queries to assure longest query will be executed at last
+  }
 
-  if (array.length === 0) return 0; // we define a base case where recursion will end
+  if (queries.length === 0) return 0; // we define a base case where recursion will end
 
   let sum = 0; // init variable to hold sum
 
-  for (let i = 0; i < array.length - 1; i++) {
-    sum += array[i]; // iterate over array less one position, due last query processing time should not be included in sum
+  for (let i = 0; i < queries.length - 1; i++) {
+    sum += queries[i]; // iterate over queries less one position, due last query processing time should not be included in sum
   }
 
-  array.pop(); // decrease length of array
+  queries.pop(); // decrease length of queries
 
-  return minimumWaitingTime(array) + sum; // return recursive call plus calculated sum
+  return minimumWaitingTime(queries, true) + sum; // return recursive call plus calculated sum
 }
 
-console.log(minimumWaitingTime(queries2));
+export function minimumWaitingTime2(queriesSrc: number[]): number {
+  let queries = [...queriesSrc]; // copy to avoit mutate source array
+
+  queries.sort((a, b) => a - b); // first sort queries to assure longest query will be executed at last
+
+  let sum = 0; // init variable to hold sum
+  let left = 0; // init left pointer
+
+  // iterate over queries less one position, due last query processing time should not be included in sum
+  while (left < queries.length - 1) {
+    sum += queries[left]; // add current value to sum
+    left++; // move left pointer
+    // if last position of array is reached, decrease size and reset pointer to 0
+    if (left === queries.length - 1) {
+      left = 0;
+      queries.pop();
+    }
+  }
+  return sum;
+}
+
+// Time: O(n*log(n))
+// Space: O(n)
+console.log(minimumWaitingTime(queries));
+
+// Time: O(n*log(n))
+// Space: O(1) // assuming we do not perform a copy of it
+console.log(minimumWaitingTime2(queries));
