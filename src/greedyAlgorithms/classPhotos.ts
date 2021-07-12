@@ -24,12 +24,32 @@
 
 */
 
-const redShirtHeights = [5, 8, 1, 3, 4];
-const blueShirtHeights = [6, 9, 2, 4, 5];
+const redShirtHeights = [6, 9, 2, 4, 5, 1]; // [ 1, 2, 4, 5, 6, 9 ]
+const blueShirtHeights = [5, 8, 1, 3, 4, 9]; // [ 1, 3, 4, 5, 8, 9 ]
 
 export function classPhotos(redShirtHeights: number[], blueShirtHeights: number[]) {
-  // Write your code here.
-  return false;
+  const sortingFunc = (a: number, b: number) => a - b;
+  redShirtHeights.sort(sortingFunc); // sort red students from smallest to tallest
+  blueShirtHeights.sort(sortingFunc); // sort blue students from smallest to tallest
+
+  let allRedTaller = true; // assume red students are tallest
+  let allBlueTaller = true; // assume blue students are tallest
+
+  // iterate over each student height
+  for (let i = 0; i < redShirtHeights.length; i++) {
+    let redStudentHeight = redShirtHeights[i];
+    let blueStudentHeight = blueShirtHeights[i];
+
+    if (redStudentHeight <= blueStudentHeight) {
+      allRedTaller = false; // if current red student height <= blue student height then all the red students are not taller
+    }
+
+    if (redStudentHeight >= blueStudentHeight) {
+      allBlueTaller = false; // if current blue student height <= red student height then all the blue students are not taller
+    }
+  }
+
+  return allRedTaller || allBlueTaller; // if all red students are not taller or all blue students are taller, photo cannot be taken
 }
 
-classPhotos(redShirtHeights, blueShirtHeights);
+console.log(classPhotos(redShirtHeights, blueShirtHeights));
