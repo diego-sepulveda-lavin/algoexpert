@@ -1,4 +1,4 @@
-const { tournamentWinner, tournamentWinnerImproved } = require("../../dist/arrays/tournamentWinner");
+const { tournamentWinner, tournamentWinnerImproved } = require("../../dist/easy/arrays/tournamentWinner");
 
 test("Test Case #1", () => {
   const competitions = [

@@ -1,4 +1,4 @@
-const { bubbleSort } = require("../../dist/sorting/bubbleSort");
+const { bubbleSort } = require("../../dist/easy/sorting/bubbleSort");
 
 test("Test case #1", () => {
   const myArr = [8, 5, 2, 9, 5, 6, 3];

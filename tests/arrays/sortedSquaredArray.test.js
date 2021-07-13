@@ -1,4 +1,4 @@
-const { sortedSquaredArrayManual2 } = require("../../dist/arrays/sortedSquaredArray");
+const { sortedSquaredArrayManual2 } = require("../../dist/easy/arrays/sortedSquaredArray");
 
 test("Test Case #1", () => {
   const numbers = [1, 2, 3, 5, 6, 8, 9];

@@ -1,4 +1,4 @@
-const { insertionSort } = require("../../dist/sorting/insertionSort");
+const { insertionSort } = require("../../dist/easy/sorting/insertionSort");
 
 test("Test case #1", () => {
   const myArr = [8, 5, 2, 9, 5, 6, 3];

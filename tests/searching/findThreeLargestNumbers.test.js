@@ -1,4 +1,4 @@
-const { findThreeLargestNumbers } = require("../../dist/searching/findThreeLargestNumbers");
+const { findThreeLargestNumbers } = require("../../dist/easy/searching/findThreeLargestNumbers");
 
 test("Test Case #1", () => {
   const array = [141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7];

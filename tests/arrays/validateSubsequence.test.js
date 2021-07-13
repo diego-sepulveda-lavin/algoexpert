@@ -2,7 +2,7 @@ const {
   isValidSubsequence2,
   isValidSubsequenceNotOptimal,
   isValidSubsequence,
-} = require("../../dist/arrays/validateSubsequence");
+} = require("../../dist/arrays/easy/validateSubsequence");
 
 test("Test Case #1", () => {
   const array = [5, 1, 22, 25, 6, -1, 8, 10];

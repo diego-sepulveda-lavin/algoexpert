@@ -1,4 +1,4 @@
-const { nonConstructibleChange } = require("../../dist/arrays/nonConstructibleChange");
+const { nonConstructibleChange } = require("../../dist/easy/arrays/nonConstructibleChange");
 
 test("Test Case #1", () => {
   const coins = [];
