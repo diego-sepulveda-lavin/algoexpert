@@ -1,57 +1,49 @@
-class BinaryTree {
-  value: number;
-  left: BinaryTree | null;
-  right: BinaryTree | null;
+class Node {
+  value: string;
+  left: Node | null;
+  right: Node | null;
 
-  constructor(value: number) {
+  constructor(value: string) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
-
-  insert(values: number[], i = 0) {
-    if (i >= values.length) return;
-    const queue: BinaryTree[] = [this];
-    while (queue.length > 0) {
-      let current = queue.shift()!;
-      if (current.left === null) {
-        current.left = new BinaryTree(values[i]);
-        break;
-      }
-      queue.push(current.left);
-      if (current.right === null) {
-        current.right = new BinaryTree(values[i]);
-        break;
-      }
-      queue.push(current.right);
-    }
-    this.insert(values, i + 1);
-    return this;
-  }
 }
 
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+
 /* 
-        2
+        a
       /   \
-     3     6
+     b     c
     / \    /
-   10 11 12
+   d   e  f
+
+   // traverse order should print a, b, c, d, e, f
 */
 
-const tree = new BinaryTree(2);
-tree.insert([3, 6, 10, 11, 12]);
-
-export function traverseTree(root: BinaryTree) {
+export function breadthFirstTraverse(root: Node) {
   let queue = [root];
   while (queue.length > 0) {
     let current = queue.shift();
+    console.log(current?.value);
     if (current?.left) {
       queue.push(current.left);
     }
     if (current?.right) {
       queue.push(current.right);
     }
-    console.log(current?.value);
   }
 }
-traverseTree(tree);
+breadthFirstTraverse(a);
