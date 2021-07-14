@@ -66,20 +66,24 @@ class BinaryTree {
 const tree = new BinaryTree(1);
 tree.insert([2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-/* export function branchSums(root: BinaryTree): number[] {
-  let currentNode: BinaryTree | null = root;
-  let stopNode: BinaryTree | null = root;
+export function branchSums(root: BinaryTree | null) {
+  const sums: number[] = []; //init an empty array where branch sums are gonna be stored
+  calculateBranchSums(root, 0, sums); //function to calculate each branch sum, init with root node, 0 and empty array
+  return sums; // return array with branch sums
+}
 
-  while (currentNode != null) {
-    if (currentNode.left) {
-      currentNode = currentNode.left;
-    } else {
-      if (currentNode.left === stopNode.value) {
-        currentNode = currentNode.right;
-      }
-      stopNode = currentNode;
-      currentNode = root;
-    }
-    console.log("currentNodeValue:", currentNode?.value, stopNode.value);
+function calculateBranchSums(node: BinaryTree | null, runningSum: number, sums: number[]) {
+  if (!node) return; // if recursion reaches a null node, just return
+  const newRunningSum = runningSum + node.value; // for every recursion, sum the runningSum with current value and store it
+
+  // if current node children are null, means we are on a leaf node, so push current newRunningSum to array
+  if (!node.left && !node.right) {
+    sums.push(newRunningSum);
   }
-} */
+  calculateBranchSums(node.left, newRunningSum, sums); // visit left node
+  calculateBranchSums(node.right, newRunningSum, sums); // visit right node, this is a preOrder traverse mode
+}
+
+// Time: O(n)
+// Space: O(n)
+console.log(branchSums(tree));
