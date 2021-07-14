@@ -79,6 +79,7 @@ function calculateBranchSums(node: BinaryTree | null, runningSum: number, sums: 
   // if current node children are null, means we are on a leaf node, so push current newRunningSum to array
   if (!node.left && !node.right) {
     sums.push(newRunningSum);
+    return;
   }
   calculateBranchSums(node.left, newRunningSum, sums); // visit left node
   calculateBranchSums(node.right, newRunningSum, sums); // visit right node, this is a preOrder traverse mode
