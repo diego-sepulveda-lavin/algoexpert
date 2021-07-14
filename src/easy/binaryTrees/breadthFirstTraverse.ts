@@ -34,16 +34,20 @@ c.right = f;
 */
 
 export function breadthFirstTraverse(root: Node) {
-  let queue = [root];
+  let queue = [root]; // init queue with root node
+  // iterate while the queue still has elementos
   while (queue.length > 0) {
-    let current = queue.shift();
+    let current = queue.shift(); // remove first element in queue
     console.log(current?.value);
     if (current?.left) {
-      queue.push(current.left);
+      queue.push(current.left); // if current element has a left child, push it to the queue
     }
     if (current?.right) {
-      queue.push(current.right);
+      queue.push(current.right); // if current element has a right child, push it to the queue
     }
   }
 }
+
+// Time O(n)
+// Space 0(n)
 breadthFirstTraverse(a);
