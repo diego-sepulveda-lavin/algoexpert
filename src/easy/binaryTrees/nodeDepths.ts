@@ -64,4 +64,14 @@ export function sumDepths(root: BinaryTree | null, depth: number, result: number
   sumDepths(root.right, depth + 1, result); // go to rigth and increase depth
 }
 
+export function nodeDepths2(root: BinaryTree | null, depth: number = 0): number {
+  if (!root) return 0; // if root is null return 0
+  // explore left node and increase depth, add current depth, explore right node
+  return nodeDepths2(root.left, depth + 1) + depth + nodeDepths2(root.right, depth + 1);
+}
+
 console.log(nodeDepths(root));
+
+// When tree is balanced
+// O(n) time | O(h) space where n is the number of nodes in the binary tree and h is the height of the tree
+console.log(nodeDepths2(root));
