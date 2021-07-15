@@ -16,7 +16,7 @@
 */
 
 // This is an input class. Do not edit.
-class LinkedList {
+export class LinkedList {
   value: number;
   next: LinkedList | null;
 
