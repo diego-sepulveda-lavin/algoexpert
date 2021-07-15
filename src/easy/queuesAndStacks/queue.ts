@@ -43,6 +43,16 @@ class Queue {
     return removedNode?.value;
   }
 
+  print() {
+    let curr = this.front;
+    let queue = [];
+    while (curr !== null) {
+      queue.push(curr.value);
+      curr = curr.next;
+    }
+    console.log("Front -> ", queue, " <- Back");
+  }
+
   getLength() {
     return this.length;
   }
@@ -59,5 +69,12 @@ let myQueue = new Queue();
 myQueue.enqueue("a");
 myQueue.enqueue("b");
 myQueue.enqueue("c");
+myQueue.enqueue("d");
+myQueue.enqueue("f");
+myQueue.dequeue();
+
+console.log(myQueue.getLength());
 console.log(myQueue.getFront());
 console.log(myQueue.getBack());
+
+myQueue.print();
