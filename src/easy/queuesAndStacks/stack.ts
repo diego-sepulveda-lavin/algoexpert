@@ -9,8 +9,8 @@ class StackNode {
 }
 
 class Stack {
-  top: StackNode | null;
-  height: number;
+  private top: StackNode | null;
+  private height: number;
 
   constructor() {
     this.top = null;
@@ -18,32 +18,24 @@ class Stack {
   }
 
   push(val: number | string) {
+    let newNode = new StackNode(val);
     if (this.height === 0) {
-      this.top = new StackNode(val);
-      this.height++;
-      return;
+      this.top = newNode;
+    } else {
+      let oldTop = this.top;
+      this.top = newNode;
+      this.top.next = oldTop;
     }
-    let oldTop = this.top;
-    this.top = new StackNode(val);
-    this.top.next = oldTop;
     this.height++;
   }
 
   pop() {
-    if (this.height === 0) return;
+    if (this.height === 0) return null;
 
-    let currTop = this.top;
-
-    if (this.height === 1) {
-      this.top = null;
-      this.height--;
-      return currTop?.value;
-    }
-    if (currTop?.next) {
-      this.top = currTop.next;
-      this.height--;
-      return currTop?.value;
-    }
+    let poppedNode = this.top;
+    this.top = this.top!.next;
+    this.height--;
+    return poppedNode?.value;
   }
 
   print() {
@@ -55,13 +47,21 @@ class Stack {
     }
     console.log(stack, "<-TOP");
   }
+
+  getHeight() {
+    return this.height;
+  }
+
+  getTop() {
+    return this.top ? this.top.value : null;
+  }
 }
 
 let myStack = new Stack();
 myStack.push(3);
 myStack.push(4);
-myStack.pop();
 myStack.push(5);
 myStack.push(6);
+let result = myStack.pop();
 
 myStack.print();
