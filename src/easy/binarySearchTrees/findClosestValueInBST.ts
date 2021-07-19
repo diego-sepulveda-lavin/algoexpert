@@ -59,7 +59,6 @@ export function findClosestValueInBst(tree: BST | null, target: number) {
 
   while (currentNode !== null) {
     let distToCurrNode = Math.abs(target - currentNode.value);
-    console.log(currentNode.value, distToCurrNode);
 
     if (distToCurrNode < distToClosestNode) {
       targetsClosestNode = currentNode;
