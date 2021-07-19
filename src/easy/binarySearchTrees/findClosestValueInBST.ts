@@ -52,32 +52,31 @@ root.right.right = new BST(22);
 
 const target = 12;
 
-export function findClosestValueInBst(tree: BST, target: number): number {
-  let possibleClosest: { nodeValue: number; distance: number }[] = [];
-  calculateClosest(tree, target, Infinity, possibleClosest);
-  let max = Infinity;
-  let result: number = 0;
-  possibleClosest.forEach((currenctPossibleClosest) => {
-    if (currenctPossibleClosest.distance < max) {
-      max = currenctPossibleClosest.distance;
-      result = currenctPossibleClosest.nodeValue;
+export function findClosestValueInBst(tree: BST | null, target: number) {
+  let targetsClosestNode;
+  let distToClosestNode = Infinity;
+  let currentNode = tree;
+
+  while (currentNode !== null) {
+    let distToCurrNode = Math.abs(target - currentNode.value);
+    console.log(currentNode.value, distToCurrNode);
+
+    if (distToCurrNode < distToClosestNode) {
+      targetsClosestNode = currentNode;
+      distToClosestNode = distToCurrNode;
     }
-  });
-  return result;
+    if (currentNode.value > target) {
+      currentNode = currentNode.left;
+    } else if (currentNode.value < target) {
+      currentNode = currentNode.right;
+    } else {
+      break;
+    }
+  }
+
+  return targetsClosestNode?.value;
 }
 
-function calculateClosest(
-  tree: BST | null,
-  target: number,
-  currentClosest: number,
-  possibleClosest: { nodeValue: number; distance: number }[]
-) {
-  if (!tree) return;
-  if (Math.abs(target - tree.value) <= currentClosest) {
-    currentClosest = Math.abs(target - tree.value);
-    possibleClosest.push({ nodeValue: tree.value, distance: currentClosest });
-  }
-  calculateClosest(tree.left, target, currentClosest, possibleClosest);
-  calculateClosest(tree.right, target, currentClosest, possibleClosest);
-}
+// Average: O(log(n)) time | O(1) space
+// Worst: O(n) time | O(1) space
 console.log(findClosestValueInBst(root, target));
