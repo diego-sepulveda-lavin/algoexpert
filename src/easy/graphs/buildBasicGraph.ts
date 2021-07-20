@@ -36,9 +36,6 @@ function isConnected(node1: string, node2: string): boolean {
   return false;
 }
 
-//console.log(findAdjacentNodes("A"));
-//console.log(isConnected("A", "E"));
-
 // Adjancency Matrix
 const vertices2 = ["A", "B", "C", "D", "E"];
 
@@ -65,6 +62,19 @@ function findAdjacentNodes2(node: string): string[] {
   return adjacentNodes;
 }
 // isConnected2
-function isConnected2(node1: string, node2: string): boolean {}
+function isConnected2(node1: string, node2: string): boolean {
+  let nodeIdx1 = verticesIdx[node1];
+  let nodeIdx2 = verticesIdx[node2];
 
-console.log(findAdjacentNodes2("C"));
+  let node1AdjacencyArr = adjacencyMatrix[nodeIdx1];
+
+  let node2Status = node1AdjacencyArr[nodeIdx2];
+  return node2Status === 1 ? true : false;
+}
+
+//with EdgesList
+console.log(findAdjacentNodes("A"));
+console.log(isConnected("A", "E"));
+//with adjacencyMatrix
+console.log(findAdjacentNodes2("A"));
+console.log(isConnected2("A", "E"));
