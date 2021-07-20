@@ -10,11 +10,10 @@ const edges = [
 ];
 
 // findAdjacentNodes
-function findAdjacentNodes(node: string) {
+function findAdjacentNodes(node: string): string[] {
   let adjacecentNodes: string[] = [];
 
-  for (let i = 0; i < edges.length; i++) {
-    let edge = edges[i];
+  for (const edge of edges) {
     let searchedNodeIdx = edge.indexOf(node);
 
     if (searchedNodeIdx > -1) {
@@ -25,4 +24,16 @@ function findAdjacentNodes(node: string) {
 }
 
 // isConnected
+function isConnected(node1: string, node2: string): boolean {
+  for (const edge of edges) {
+    let areBothNodesInSubArray = edge.indexOf(node1) > -1 && edge.indexOf(node2) > -1;
+
+    if (areBothNodesInSubArray) {
+      return true;
+    }
+  }
+  return false;
+}
+
 console.log(findAdjacentNodes("B"));
+console.log(isConnected("A", "E"));
