@@ -1,3 +1,4 @@
+// Vertices and edges
 const vertices = ["A", "B", "C", "D", "E"];
 
 const edges = [
@@ -11,16 +12,16 @@ const edges = [
 
 // findAdjacentNodes
 function findAdjacentNodes(node: string): string[] {
-  let adjacecentNodes: string[] = [];
+  let adjacentNodes: string[] = [];
 
   for (const edge of edges) {
     let searchedNodeIdx = edge.indexOf(node);
 
     if (searchedNodeIdx > -1) {
-      searchedNodeIdx === 0 ? adjacecentNodes.push(edge[1]) : adjacecentNodes.push(edge[0]);
+      searchedNodeIdx === 0 ? adjacentNodes.push(edge[1]) : adjacentNodes.push(edge[0]);
     }
   }
-  return adjacecentNodes;
+  return adjacentNodes;
 }
 
 // isConnected
@@ -35,5 +36,35 @@ function isConnected(node1: string, node2: string): boolean {
   return false;
 }
 
-console.log(findAdjacentNodes("B"));
-console.log(isConnected("A", "E"));
+//console.log(findAdjacentNodes("A"));
+//console.log(isConnected("A", "E"));
+
+// Adjancency Matrix
+const vertices2 = ["A", "B", "C", "D", "E"];
+
+const verticesIdx: { [node: string]: number } = { A: 0, B: 1, C: 2, D: 3, E: 4 };
+
+const adjacencyMatrix = [
+  [0, 1, 0, 1, 0],
+  [1, 0, 1, 0, 0],
+  [0, 1, 0, 1, 1],
+  [1, 0, 1, 0, 1],
+  [0, 0, 1, 1, 0],
+];
+
+// findAdjacentNodes2
+function findAdjacentNodes2(node: string): string[] {
+  let adjacentNodes: string[] = [];
+  let adjacencySubArray = adjacencyMatrix[verticesIdx[node]];
+
+  for (let i = 0; i < adjacencySubArray.length; i++) {
+    let currentNode = adjacencySubArray[i];
+    currentNode === 1 && adjacentNodes.push(vertices2[i]);
+  }
+
+  return adjacentNodes;
+}
+// isConnected2
+function isConnected2(node1: string, node2: string): boolean {}
+
+console.log(findAdjacentNodes2("C"));
