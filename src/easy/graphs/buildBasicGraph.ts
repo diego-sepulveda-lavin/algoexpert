@@ -72,9 +72,64 @@ function isConnected2(node1: string, node2: string): boolean {
   return node2Status === 1 ? true : false;
 }
 
+class GraphNode {
+  value: string;
+  edgesList: GraphNode[];
+
+  constructor(val: string) {
+    this.value = val;
+    this.edgesList = [];
+  }
+
+  connect(node: GraphNode) {
+    this.edgesList.push(node);
+    node.edgesList.push(this);
+  }
+
+  getAdjacentNodes() {
+    return this.edgesList.map((edge) => edge.value);
+  }
+
+  isConnected(node: GraphNode) {
+    return this.edgesList.some((edge) => edge === node);
+  }
+}
+
+class Graph {
+  nodes: GraphNode[];
+
+  constructor(nodes: GraphNode[]) {
+    this.nodes = [...nodes];
+  }
+
+  addNode(node: GraphNode) {
+    this.nodes.push(node);
+  }
+}
+
+const nodeA = new GraphNode("A");
+const nodeB = new GraphNode("B");
+const nodeC = new GraphNode("C");
+const nodeD = new GraphNode("D");
+
+const nodeE = new GraphNode("E");
+
+const graph = new Graph([nodeA, nodeB, nodeC, nodeD]);
+graph.addNode(nodeE);
+
+nodeA.connect(nodeB);
+nodeA.connect(nodeD);
+nodeB.connect(nodeC);
+nodeC.connect(nodeD);
+nodeC.connect(nodeE);
+nodeD.connect(nodeE);
+
 //with EdgesList
 console.log(findAdjacentNodes("A"));
 console.log(isConnected("A", "E"));
 //with adjacencyMatrix
 console.log(findAdjacentNodes2("A"));
 console.log(isConnected2("A", "E"));
+// with adjacencyList and Classes
+console.log(nodeA.getAdjacentNodes());
+console.log(nodeA.isConnected(nodeE));
