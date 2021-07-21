@@ -26,12 +26,17 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
   // a + b + c = targetSum
   let resultArr: Triplet[] = [];
   let copyArr = [...array.sort((a, b) => a - b)];
+
   for (let i = 0; i < copyArr.length; i++) {
     const firstNumber = copyArr[i];
+
     for (let j = i + 1; j < copyArr.length; j++) {
       const secondNumber = copyArr[j];
+      if (firstNumber + secondNumber >= targetSum) break;
+
       for (let k = j + 1; k < copyArr.length; k++) {
         const thirdNumber = copyArr[k];
+
         if (firstNumber + secondNumber + thirdNumber === targetSum) {
           let arrayToBePushed: Triplet = [firstNumber, secondNumber, thirdNumber];
           resultArr.push(arrayToBePushed);
