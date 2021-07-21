@@ -43,7 +43,34 @@ export class Node {
   }
 
   depthFirstSearch(array: string[]) {
-    // Write your code here.
+    let stack: Node[] = [this];
+
+    while (stack.length > 0) {
+      let currNode = stack.pop();
+      array.push(currNode?.name!);
+
+      for (let i = currNode?.children.length! - 1; i >= 0; i--) {
+        stack.push(currNode?.children[i]!);
+      }
+    }
+
     return array;
   }
 }
+
+const graph = new Node("A");
+graph.addChild("B");
+graph.addChild("C");
+graph.addChild("D");
+graph.children[0].addChild("E");
+graph.children[0].addChild("F");
+
+graph.children[2].addChild("G");
+graph.children[2].addChild("H");
+
+graph.children[0].children[1].addChild("I");
+graph.children[0].children[1].addChild("J");
+
+graph.children[2].children[0].addChild("K");
+
+console.log(graph.depthFirstSearch([]));
