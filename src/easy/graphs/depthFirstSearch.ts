@@ -81,4 +81,6 @@ graph.children[0].children[1].addChild("J");
 
 graph.children[2].children[0].addChild("K");
 
+console.log(graph.depthFirstSearch([]));
+// O(v+e) time | O(v) space
 console.log(graph.depthFirstSearchRec([]));
