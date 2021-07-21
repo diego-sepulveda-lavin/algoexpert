@@ -56,6 +56,14 @@ export class Node {
 
     return array;
   }
+
+  depthFirstSearchRec(array: string[]) {
+    array.push(this.name);
+    for (const child of this.children) {
+      child.depthFirstSearchRec(array);
+    }
+    return array;
+  }
 }
 
 const graph = new Node("A");
@@ -73,4 +81,4 @@ graph.children[0].children[1].addChild("J");
 
 graph.children[2].children[0].addChild("K");
 
-console.log(graph.depthFirstSearch([]));
+console.log(graph.depthFirstSearchRec([]));
