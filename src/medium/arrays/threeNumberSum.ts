@@ -24,6 +24,7 @@ type Triplet = [number, number, number];
 
 export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
   // a + b + c = targetSum
+  let counter = 0;
   let resultArr: Triplet[] = [];
   let copyArr = [...array.sort((a, b) => a - b)];
 
@@ -36,7 +37,7 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
 
       for (let k = j + 1; k < copyArr.length; k++) {
         const thirdNumber = copyArr[k];
-
+        counter++;
         if (firstNumber + secondNumber + thirdNumber === targetSum) {
           let arrayToBePushed: Triplet = [firstNumber, secondNumber, thirdNumber];
           resultArr.push(arrayToBePushed);
@@ -44,8 +45,36 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
       }
     }
   }
+  console.log(counter);
+
+  return resultArr;
+}
+
+export function threeNumberSum2(array: number[], targetSum: number): Triplet[] {
+  let counter = 0;
+  const copyArr = [...array.sort((a, b) => a - b)];
+  const resultArr: Triplet[] = [];
+  for (let i = 0; i < copyArr.length - 2; i++) {
+    let left = i + 1;
+    let right = copyArr.length - 1;
+    while (left < right) {
+      counter++;
+      const currentSum = copyArr[i] + copyArr[left] + copyArr[right];
+      if (currentSum === targetSum) {
+        resultArr.push([copyArr[i], copyArr[left], copyArr[right]]);
+        left++;
+        right--;
+      } else if (currentSum < targetSum) {
+        left++;
+      } else if (currentSum > targetSum) {
+        right--;
+      }
+    }
+  }
+  console.log(counter);
 
   return resultArr;
 }
 
 console.log(threeNumberSum(array, targetSum));
+console.log(threeNumberSum2(array, targetSum));
