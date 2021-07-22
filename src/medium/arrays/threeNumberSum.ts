@@ -50,7 +50,7 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
   return resultArr;
 }
 
-export function threeNumberSum2(array: number[], targetSum: number): Triplet[] {
+export function threeNumberSumImp(array: number[], targetSum: number): Triplet[] {
   let counter = 0;
   const copyArr = [...array.sort((a, b) => a - b)];
   const resultArr: Triplet[] = [];
@@ -77,4 +77,6 @@ export function threeNumberSum2(array: number[], targetSum: number): Triplet[] {
 }
 
 console.log(threeNumberSum(array, targetSum));
-console.log(threeNumberSum2(array, targetSum));
+
+// O(n²) Time | O(n) space
+console.log(threeNumberSumImp(array, targetSum));
