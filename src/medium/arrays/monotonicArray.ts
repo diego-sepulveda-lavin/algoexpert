@@ -21,8 +21,7 @@
 const array = [1, 5, 10, 1100, 1101, 1102, 1102];
 
 export function isMonotonic(array: number[]) {
-  if (array.length === 0) return true;
-  if (array.length === 1) return true;
+  if (array.length <= 2) return true;
 
   let leftPointer = 0;
   let rightPointer = leftPointer + 1;
@@ -43,4 +42,17 @@ export function isMonotonic(array: number[]) {
   }
   return true;
 }
-console.log(isMonotonic(array));
+
+export function isMonotonic2(array: number[]) {
+  let isNonDecreasing = true;
+  let isNonIncreasing = true;
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] < array[i - 1]) isNonDecreasing = false;
+    if (array[i] > array[i - 1]) isNonIncreasing = false;
+  }
+  return isNonDecreasing || isNonIncreasing;
+}
+
+// O(n) time |  O(1) space
+//console.log(isMonotonic(array));
+console.log(isMonotonic2(array));
