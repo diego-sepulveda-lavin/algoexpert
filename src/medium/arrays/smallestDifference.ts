@@ -20,32 +20,62 @@
 const arrayOne = [-1, 5, 10, 20, 28, 3];
 const arrayTwo = [26, 134, 135, 15, 17];
 
-//sortedOne [ -1, 3, 5, 10, 20, 28 ]
-//sortedTwo [ 135, 134, 26, 17, 15 ]
-//smallest = infinity
+export function smallestDifference(arrayOne: number[], arrayTwo: number[]): number[] {
+  const arrOne = [...arrayOne];
+  const arrTwo = [...arrayTwo];
+  const smallestPair = [];
+  let smallestAbsDiff = Infinity;
 
-export function smallestDifference(arrayOne: number[], arrayTwo: number[]) {
-  let arrayOneCopy = [...arrayOne.sort((a, b) => a - b)];
-  let arrayTwoCopy = [...arrayTwo.sort((a, b) => b - a)];
-  let result = [];
-  let currentSmallest = Infinity;
+  for (const numOne of arrOne) {
+    for (const numTwo of arrTwo) {
+      const currAbsDiff = Math.abs(numOne - numTwo);
 
-  for (const numberOne of arrayOneCopy) {
-    for (const numberTwo of arrayTwoCopy) {
-      if (Math.abs(numberOne - numberTwo) < currentSmallest) {
-        currentSmallest = Math.abs(numberOne - numberTwo);
-        result[0] = numberOne;
-        result[1] = numberTwo;
+      if (currAbsDiff < smallestAbsDiff) {
+        smallestAbsDiff = currAbsDiff;
+        smallestPair[0] = numOne;
+        smallestPair[1] = numTwo;
       }
     }
   }
-
-  return result;
+  return smallestPair;
 }
 
-export function test(arrayOne: number[], arrayTwo: number[]) {
-  console.log(Math.abs(-1 - 15));
-  console.log(Math.abs(-1 - 17));
+export function smallestDifferenceImp(arrayOne: number[], arrayTwo: number[]): number[] {
+  const arrOne = [...arrayOne.sort((a, b) => a - b)];
+  const arrTwo = [...arrayTwo.sort((a, b) => a - b)];
+  const smallestPair = [];
+  let smallestAbsDiff = Infinity;
+
+  let arrOnePointer = 0;
+  let arrTwoPointer = 0;
+
+  while (arrOnePointer < arrOne.length && arrTwoPointer < arrTwo.length) {
+    const arrOneNum = arrOne[arrOnePointer];
+    const arrTwoNum = arrTwo[arrTwoPointer];
+    const currAbsDiff = Math.abs(arrOneNum - arrTwoNum);
+
+    if (currAbsDiff === 0) {
+      return [arrOneNum, arrTwoNum];
+    }
+
+    if (currAbsDiff <= smallestAbsDiff) {
+      smallestAbsDiff = currAbsDiff;
+      smallestPair[0] = arrOneNum;
+      smallestPair[1] = arrTwoNum;
+    }
+
+    if (arrOneNum < arrTwoNum) {
+      arrOnePointer++;
+    } else {
+      arrTwoPointer++;
+    }
+  }
+
+  return smallestPair;
 }
 
-test(arrayOne, arrayTwo);
+// O(n²) Time | O(n) Space due copy of array or O(1) Space without copy
+console.log(smallestDifference(arrayOne, arrayTwo));
+
+// O(nlog(n) + mlog(m)) Time | O(n) Space due copy of array or O(1) Space without copy
+console.log(smallestDifferenceImp(arrayOne, arrayTwo));
