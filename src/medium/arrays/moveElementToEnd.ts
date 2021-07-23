@@ -33,4 +33,33 @@ export function moveElementToEnd(array: number[], toMove: number) {
   return array;
 }
 
+export function moveElementToEndImp(array: number[], toMove: number) {
+  let leftPointer = 0;
+  let rightPointer = array.length - 1;
+
+  while (leftPointer < rightPointer) {
+    const leftNum = array[leftPointer];
+    const rightNum = array[rightPointer];
+
+    if (leftNum === toMove) {
+      if (rightNum === toMove) {
+        rightPointer--;
+      } else {
+        let temp = array[rightPointer];
+        array[rightPointer] = array[leftPointer];
+        array[leftPointer] = temp;
+        rightPointer--;
+        leftPointer++;
+      }
+    } else {
+      leftPointer++;
+    }
+  }
+
+  return array;
+}
+
 moveElementToEnd(array, toMove);
+
+// O(n) Time | O(1) Space
+moveElementToEndImp(array, toMove);
