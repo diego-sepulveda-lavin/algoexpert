@@ -41,8 +41,12 @@ export function smallestDifference(arrayOne: number[], arrayTwo: number[]): numb
 }
 
 export function smallestDifferenceImp(arrayOne: number[], arrayTwo: number[]): number[] {
-  const arrOne = [...arrayOne.sort((a, b) => a - b)];
-  const arrTwo = [...arrayTwo.sort((a, b) => a - b)];
+  const arrOne = [...arrayOne];
+  const arrTwo = [...arrayTwo];
+
+  arrOne.sort((a, b) => a - b);
+  arrTwo.sort((a, b) => a - b);
+
   const smallestPair = [];
   let smallestAbsDiff = Infinity;
 

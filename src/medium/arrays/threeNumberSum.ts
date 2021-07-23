@@ -26,7 +26,8 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
   // a + b + c = targetSum
   let counter = 0;
   let resultArr: Triplet[] = [];
-  let copyArr = [...array.sort((a, b) => a - b)];
+  let copyArr = [...array];
+  copyArr.sort((a, b) => a - b);
 
   for (let i = 0; i < copyArr.length; i++) {
     const firstNumber = copyArr[i];
@@ -52,7 +53,9 @@ export function threeNumberSum(array: number[], targetSum: number): Triplet[] {
 
 export function threeNumberSumImp(array: number[], targetSum: number): Triplet[] {
   let counter = 0;
-  const copyArr = [...array.sort((a, b) => a - b)];
+  const copyArr = [...array];
+  copyArr.sort((a, b) => a - b);
+
   const resultArr: Triplet[] = [];
   for (let i = 0; i < copyArr.length - 2; i++) {
     let left = i + 1;
