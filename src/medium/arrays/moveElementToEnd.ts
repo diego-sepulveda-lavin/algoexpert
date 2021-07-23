@@ -18,6 +18,19 @@
 const array = [2, 1, 2, 2, 2, 3, 4, 2];
 const toMove = 2;
 
-export function moveElementToEnd(array: number[], toMove: number) {}
+export function moveElementToEnd(array: number[], toMove: number) {
+  let pointer = 0;
+  for (let i = 0; i < array.length; i++) {
+    const num = array[pointer];
+    if (num === toMove) {
+      let removedNum = array.splice(pointer, 1);
+      array.push(...removedNum);
+    } else {
+      pointer++;
+    }
+  }
+
+  return array;
+}
 
 moveElementToEnd(array, toMove);
