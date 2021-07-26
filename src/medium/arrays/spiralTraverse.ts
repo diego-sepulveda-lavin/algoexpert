@@ -30,6 +30,64 @@ const array = [
   [10, 9, 8, 7],
 ];
 
-export function iterateTwoDimensionArray(array: number[][]) {}
+export function spiralTraverse(array: number[][]) {
+  let rowPointer = 0;
+  let columnPointer = 0;
 
-iterateTwoDimensionArray(array);
+  let leftWall = 0;
+  let rightWall = array[rowPointer].length;
+  let topWall = 0;
+  let bottomWall = array.length;
+
+  enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+  }
+
+  let direction = Direction.Right;
+
+  let outputArr = [];
+
+  while (leftWall < rightWall && topWall < bottomWall) {
+    outputArr.push(array[rowPointer][columnPointer]);
+    if (direction === Direction.Right) {
+      if (columnPointer >= rightWall - 1) {
+        direction = Direction.Down;
+        rowPointer++;
+        topWall++;
+      } else {
+        columnPointer++;
+      }
+    } else if (direction === Direction.Down) {
+      if (rowPointer >= bottomWall - 1) {
+        direction = Direction.Left;
+        columnPointer--;
+        rightWall--;
+      } else {
+        rowPointer++;
+      }
+    } else if (direction === Direction.Left) {
+      if (columnPointer <= leftWall) {
+        direction = Direction.Up;
+        rowPointer--;
+        bottomWall--;
+      } else {
+        columnPointer--;
+      }
+    } else if (direction === Direction.Up) {
+      if (rowPointer <= topWall) {
+        direction = Direction.Right;
+        columnPointer++;
+        leftWall++;
+      } else {
+        rowPointer--;
+      }
+    }
+  }
+
+  return outputArr;
+}
+// O(n) Time | O(n) Space
+spiralTraverse(array);
