@@ -90,4 +90,4 @@ export function spiralTraverse(array: number[][]) {
   return outputArr;
 }
 // O(n) Time | O(n) Space
-spiralTraverse(array);
+console.log(spiralTraverse(array));
