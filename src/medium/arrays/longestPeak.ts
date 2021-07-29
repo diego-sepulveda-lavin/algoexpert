@@ -18,8 +18,8 @@
 const array = [1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3];
 
 export function longestPeak(array: number[]) {
-  const maxLengths = [];
   let mainPointer = 0;
+  let longestPeak = 0;
 
   while (mainPointer < array.length) {
     const prevHeight = array[mainPointer - 1];
@@ -48,14 +48,12 @@ export function longestPeak(array: number[]) {
         }
       }
 
-      maxLengths.push(currPeakLength);
+      currPeakLength > longestPeak && (longestPeak = currPeakLength);
     }
     mainPointer++;
   }
 
-  let currentMaxLength = 0;
-  maxLengths.forEach((length) => length > currentMaxLength && (currentMaxLength = length));
-  return currentMaxLength;
+  return longestPeak;
 }
 
 console.log(longestPeak(array));
