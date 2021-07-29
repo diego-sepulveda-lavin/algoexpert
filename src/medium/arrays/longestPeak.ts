@@ -18,24 +18,29 @@
 const array = [1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3];
 
 export function longestPeak(array: number[]) {
-  let maxLengths = [];
-  let pointer = 0;
+  const maxLengths = [];
+  let mainPointer = 0;
 
-  while (pointer < array.length) {
-    let prevHeight = array[pointer - 1];
-    let currHeight = array[pointer];
-    let nextHeight = array[pointer + 1];
+  while (mainPointer < array.length) {
+    const prevHeight = array[mainPointer - 1];
+    const currHeight = array[mainPointer];
+    const nextHeight = array[mainPointer + 1];
 
     if (currHeight > prevHeight && currHeight > nextHeight) {
       let currPeakLength = 1;
-      let leftPeakPointer = pointer - 1;
-      let rightPeakPointer = pointer + 1;
+      let leftPeakPointer = mainPointer - 1;
+      let rightPeakPointer = mainPointer + 1;
 
       while (true) {
-        if (array[leftPeakPointer + 1] > array[leftPeakPointer]) {
+        const currLeftPeak = array[leftPeakPointer + 1];
+        const prevLeftPeak = array[leftPeakPointer];
+        const currRightPeak = array[rightPeakPointer - 1];
+        const nextRightPeak = array[rightPeakPointer];
+
+        if (currLeftPeak > prevLeftPeak) {
           currPeakLength++;
           leftPeakPointer--;
-        } else if (array[rightPeakPointer - 1] > array[rightPeakPointer]) {
+        } else if (currRightPeak > nextRightPeak) {
           currPeakLength++;
           rightPeakPointer++;
         } else {
@@ -45,7 +50,7 @@ export function longestPeak(array: number[]) {
 
       maxLengths.push(currPeakLength);
     }
-    pointer++;
+    mainPointer++;
   }
 
   let currentMaxLength = 0;
