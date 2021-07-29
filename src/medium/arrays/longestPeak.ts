@@ -19,7 +19,7 @@ const array = [1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3];
 
 export function longestPeak(array: number[]) {
   let mainPointer = 0;
-  let longestPeak = 0;
+  let longestPeakLength = 0;
 
   while (mainPointer < array.length) {
     const prevHeight = array[mainPointer - 1];
@@ -48,12 +48,13 @@ export function longestPeak(array: number[]) {
         }
       }
 
-      currPeakLength > longestPeak && (longestPeak = currPeakLength);
+      currPeakLength > longestPeakLength && (longestPeakLength = currPeakLength);
     }
     mainPointer++;
   }
 
-  return longestPeak;
+  return longestPeakLength;
 }
 
+// O(n) Time || O(1) Space
 console.log(longestPeak(array));
