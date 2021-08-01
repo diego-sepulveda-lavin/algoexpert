@@ -45,6 +45,25 @@ export function firstDuplicateValue(array: number[]) {
   return -1;
 }
 
+export function firstDuplicateValue2(array: number[]) {
+  let repetitionsMap: { [number: number]: number } = {};
+
+  for (const currNumber of array) {
+    if (currNumber in repetitionsMap) {
+      repetitionsMap[currNumber] += 1;
+      if (repetitionsMap[currNumber] >= 2) {
+        return currNumber;
+      }
+    } else {
+      repetitionsMap[currNumber] = 1;
+    }
+  }
+
+  return -1;
+}
 
 // O(n) Time | O(n) Space
 console.log(firstDuplicateValue(array));
+
+// O(n) Time | O(n) Space
+console.log(firstDuplicateValue2(array));
