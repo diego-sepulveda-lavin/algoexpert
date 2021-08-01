@@ -73,6 +73,16 @@ export function firstDuplicateValue3(array: number[]) {
   return -1;
 }
 
+export function firstDuplicateValue4(array: number[]) {
+  for (const currNumber of array) {
+    const absValue = Math.abs(currNumber);
+    if (array[absValue - 1] < 0) return absValue;
+    array[absValue - 1] *= -1;
+  }
+
+  return -1;
+}
+
 // O(n) Time | O(n) Space
 console.log(firstDuplicateValue(array));
 
@@ -81,3 +91,6 @@ console.log(firstDuplicateValue2(array));
 
 // O(n) Time | O(n) Space
 console.log(firstDuplicateValue3(array));
+
+// O(n) Time | O(1) Space
+console.log(firstDuplicateValue4(array));
