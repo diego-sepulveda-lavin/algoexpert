@@ -25,17 +25,19 @@ const array = [5, 1, 4, 2];
 export function arrayOfProducts(array: number[]) {
   let outerPointer = 0;
   let arrayOfProducts = [];
+
   while (outerPointer < array.length) {
     let innerPointer = 0;
-    let restingNumbers = [];
+    let product = 1;
+
     while (innerPointer < array.length) {
       if (outerPointer !== innerPointer) {
-        restingNumbers.push(array[innerPointer]);
+        product = product * array[innerPointer];
       }
       innerPointer++;
     }
-    let tempProduct = restingNumbers.reduce((acc, current) => acc * current);
-    arrayOfProducts.push(tempProduct);
+
+    arrayOfProducts[outerPointer] = product;
     outerPointer++;
   }
 
