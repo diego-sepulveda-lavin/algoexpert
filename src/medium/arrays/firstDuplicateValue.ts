@@ -62,8 +62,22 @@ export function firstDuplicateValue2(array: number[]) {
   return -1;
 }
 
+export function firstDuplicateValue3(array: number[]) {
+  const repetitions = new Set();
+
+  for (const currNumber of array) {
+    if (repetitions.has(currNumber)) return currNumber;
+    repetitions.add(currNumber);
+  }
+
+  return -1;
+}
+
 // O(n) Time | O(n) Space
 console.log(firstDuplicateValue(array));
 
 // O(n) Time | O(n) Space
 console.log(firstDuplicateValue2(array));
+
+// O(n) Time | O(n) Space
+console.log(firstDuplicateValue3(array));
