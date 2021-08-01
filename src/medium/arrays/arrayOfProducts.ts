@@ -44,4 +44,37 @@ export function arrayOfProducts(array: number[]) {
   return arrayOfProducts;
 }
 
+export function arrayOfProductsImp(array: number[]) {
+  let leftProductsArr = new Array(array.length).fill(1);
+  let rightProductsArr = new Array(array.length).fill(1);
+  let productArr = [];
+
+  let leftProduct = 1;
+  let rightProduct = 1;
+
+  for (let i = 0; i < array.length; i++) {
+    const currNumber = array[i];
+    leftProductsArr[i] = leftProduct;
+    leftProduct *= currNumber;
+  }
+
+  for (let i = array.length - 1; i >= 0; i--) {
+    const currNumber = array[i];
+    rightProductsArr[i] = rightProduct;
+    rightProduct *= currNumber;
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    const leftProduct = leftProductsArr[i];
+    const rightProduct = rightProductsArr[i];
+    productArr[i] = leftProduct * rightProduct;
+  }
+
+  return productArr;
+}
+
+// O(n²) time | O(n) space
 console.log(arrayOfProducts(array));
+
+// O(n) time | O(n) space
+console.log(arrayOfProductsImp(array));
