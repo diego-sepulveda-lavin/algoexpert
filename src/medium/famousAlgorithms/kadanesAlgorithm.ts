@@ -35,5 +35,21 @@ export function kadanesAlgorithm(array: number[]): number {
   return maxSum;
 }
 
+export function kadanesAlgorithmReal(array: number[]): number {
+  let maxEndingHere = array[0];
+  let maxSoFar = array[0];
+
+  for (let i = 1; i < array.length; i++) {
+    const currElement = array[i];
+    maxEndingHere = Math.max(maxEndingHere + currElement, currElement);
+    maxSoFar = Math.max(maxSoFar, maxEndingHere);
+  }
+
+  return maxSoFar;
+}
+
 // O(n²) time || O(1) Space
-kadanesAlgorithm(array);
+console.log(kadanesAlgorithm(array));
+
+// O(n) time || O(1) Space
+console.log(kadanesAlgorithmReal(array));
