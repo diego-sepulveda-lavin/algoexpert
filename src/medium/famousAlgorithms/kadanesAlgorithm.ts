@@ -36,16 +36,16 @@ export function kadanesAlgorithm(array: number[]): number {
 }
 
 export function kadanesAlgorithmReal(array: number[]): number {
-  let maxEndingHere = array[0];
-  let maxSoFar = array[0];
+  let maxCurrent = array[0];
+  let maxGlobal = array[0];
 
   for (let i = 1; i < array.length; i++) {
     const currElement = array[i];
-    maxEndingHere = Math.max(maxEndingHere + currElement, currElement);
-    maxSoFar = Math.max(maxSoFar, maxEndingHere);
+    maxCurrent = Math.max(maxCurrent + currElement, currElement);
+    maxGlobal = Math.max(maxGlobal, maxCurrent);
   }
 
-  return maxSoFar;
+  return maxGlobal;
 }
 
 // O(n²) time || O(1) Space
