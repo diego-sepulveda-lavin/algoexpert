@@ -65,32 +65,81 @@ export class DoublyLinkedList {
 
   setHead(node: Node) {
     // Write your code here.
-    node.prev && (node.prev.next = node.next);
-    node.next && (node.next!.prev = node.prev);
-    node.prev = null;
-    node.next = this.head;
-    this.head && (this.head.prev = node);
-    this.head = node;
+    if (this.head === null) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      node.prev && (node.prev.next = node.next);
+      node.next && (node.next!.prev = node.prev);
+      node.prev = null;
+      node.next = this.head;
+      this.head && (this.head.prev = node);
+      this.head = node;
+    }
   }
 
   setTail(node: Node) {
     // Write your code here.
-    this.tail && (this.tail.next = node);
-    node.next = null;
-    node.prev = this.tail;
-    this.tail = node;
+    if (this.tail === null) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      this.tail && (this.tail.next = node);
+      node.next = null;
+      node.prev = this.tail;
+      this.tail = node;
+    }
   }
 
   insertBefore(node: Node, nodeToInsert: Node) {
     // Write your code here.
+    if (node === this.head) {
+      this.head = nodeToInsert;
+    }
+    nodeToInsert.prev && (nodeToInsert.prev.next = nodeToInsert.next);
+    nodeToInsert.next && (nodeToInsert.next.prev = nodeToInsert.prev);
+    nodeToInsert.prev = node.prev;
+    node.prev && (node.prev.next = nodeToInsert);
+    nodeToInsert.next = node;
+    node.prev = nodeToInsert;
   }
 
   insertAfter(node: Node, nodeToInsert: Node) {
     // Write your code here.
+    if (node === this.tail) {
+      node.next = nodeToInsert;
+      nodeToInsert.prev = node;
+      this.tail = nodeToInsert;
+    } else {
+      node.next && (node.next.prev = nodeToInsert);
+      nodeToInsert.next = node.next;
+      node.next = nodeToInsert;
+      nodeToInsert.prev = node;
+    }
   }
 
   insertAtPosition(position: number, nodeToInsert: Node) {
     // Write your code here.
+    if (this.head === null) {
+      this.head = nodeToInsert;
+      this.tail = nodeToInsert;
+      return;
+    }
+
+    let currNode = this.head;
+    let currPos = 1;
+    while (currPos != position) {
+      currNode = currNode.next!;
+      currPos++;
+    }
+
+    if (position === 1) {
+      currNode!.prev = nodeToInsert;
+      nodeToInsert.next = currNode;
+      this.head = nodeToInsert;
+    } else {
+      this.insertBefore(currNode!, nodeToInsert);
+    }
   }
 
   removeNodesWithValue(value: number) {
@@ -98,10 +147,16 @@ export class DoublyLinkedList {
     let currNode = this.head;
     while (currNode != null) {
       if (currNode.value === value) {
-        currNode.prev && (currNode.prev.next = currNode.next);
-        currNode.next && (currNode.next.prev = currNode.prev);
-        currNode.prev = null;
-        currNode.next = null;
+        if (currNode === this.head) {
+          this.head = currNode.next;
+          this.head && (this.head.prev = null);
+        } else if (currNode === this.tail) {
+          this.tail = currNode.prev;
+          this.tail && (this.tail.next = null);
+        } else {
+          currNode.prev && (currNode.prev.next = currNode.next);
+          currNode.next && (currNode.next.prev = currNode.prev);
+        }
       }
       currNode = currNode.next;
     }
@@ -109,6 +164,12 @@ export class DoublyLinkedList {
 
   remove(node: Node) {
     // Write your code here.
+    if (this.head === node) {
+      this.head = node.next;
+    }
+    if (this.tail === node) {
+      this.tail = node.prev;
+    }
     node.prev && (node.prev.next = node.next);
     node.next && (node.next.prev = node.prev);
     node.prev = null;
@@ -173,7 +234,14 @@ myLinkedList.setHead(four);
 myLinkedList.describe();
 myLinkedList.setTail(six);
 myLinkedList.describe();
+myLinkedList.insertBefore(six, three);
+myLinkedList.describe();
+myLinkedList.insertAfter(six, three2);
+myLinkedList.describe();
+myLinkedList.insertAtPosition(1, three3);
+myLinkedList.describe();
 myLinkedList.removeNodesWithValue(3);
 myLinkedList.describe();
 myLinkedList.remove(two);
 myLinkedList.describe();
+myLinkedList.containsNodeWithValue(5);
