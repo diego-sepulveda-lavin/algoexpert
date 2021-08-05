@@ -109,6 +109,10 @@ export class DoublyLinkedList {
 
   remove(node: Node) {
     // Write your code here.
+    node.prev && (node.prev.next = node.next);
+    node.next && (node.next.prev = node.prev);
+    node.prev = null;
+    node.next = null;
   }
 
   containsNodeWithValue(value: number): boolean {
@@ -170,4 +174,6 @@ myLinkedList.describe();
 myLinkedList.setTail(six);
 myLinkedList.describe();
 myLinkedList.removeNodesWithValue(3);
+myLinkedList.describe();
+myLinkedList.remove(two);
 myLinkedList.describe();
