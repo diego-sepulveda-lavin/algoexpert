@@ -5,11 +5,8 @@
     "None / null". The class should support:
     
     - Setting the head and tail of the linked list.
-    
     - Inserting nodes before and after other nodes as well as at given positions (the position of the head node is 1).
-    
     - Removing given nodes and removing nodes with given values.
-    
     - Searching for nodes with given values.
 
     Note that the "setHead", "setTail","insertBefore", "insertAfter", "insertAtPosition", and "remove" methods all take in
@@ -68,6 +65,7 @@ export class DoublyLinkedList {
 
   setHead(node: Node) {
     // Write your code here.
+    this.head = node;
   }
 
   setTail(node: Node) {
@@ -99,3 +97,29 @@ export class DoublyLinkedList {
     return false;
   }
 }
+
+function bindNodes(nodeOne: Node, nodeTwo: Node) {
+  nodeOne.next = nodeTwo;
+  nodeTwo.prev = nodeOne;
+}
+
+let one = new Node(1);
+let two = new Node(2);
+let three = new Node(3);
+let four = new Node(4);
+let five = new Node(5);
+
+let three2 = new Node(3);
+let three3 = new Node(3);
+let six = new Node(6);
+
+bindNodes(one, two);
+bindNodes(two, three);
+bindNodes(three, five);
+bindNodes(four, five);
+
+let myDoublyLinkedList = new DoublyLinkedList();
+myDoublyLinkedList.head = one;
+myDoublyLinkedList.tail = five;
+
+console.log(myDoublyLinkedList);
