@@ -95,6 +95,16 @@ export class DoublyLinkedList {
 
   removeNodesWithValue(value: number) {
     // Write your code here.
+    let currNode = this.head;
+    while (currNode != null) {
+      if (currNode.value === value) {
+        currNode.prev && (currNode.prev.next = currNode.next);
+        currNode.next && (currNode.next.prev = currNode.prev);
+        currNode.prev = null;
+        currNode.next = null;
+      }
+      currNode = currNode.next;
+    }
   }
 
   remove(node: Node) {
@@ -158,4 +168,6 @@ myLinkedList.describe();
 myLinkedList.setHead(four);
 myLinkedList.describe();
 myLinkedList.setTail(six);
+myLinkedList.describe();
+myLinkedList.removeNodesWithValue(3);
 myLinkedList.describe();
