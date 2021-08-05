@@ -65,11 +65,20 @@ export class DoublyLinkedList {
 
   setHead(node: Node) {
     // Write your code here.
+    node.prev && (node.prev.next = node.next);
+    node.next && (node.next!.prev = node.prev);
+    node.prev = null;
+    node.next = this.head;
+    this.head && (this.head.prev = node);
     this.head = node;
   }
 
   setTail(node: Node) {
     // Write your code here.
+    this.tail && (this.tail.next = node);
+    node.next = null;
+    node.prev = this.tail;
+    this.tail = node;
   }
 
   insertBefore(node: Node, nodeToInsert: Node) {
@@ -92,34 +101,61 @@ export class DoublyLinkedList {
     // Write your code here.
   }
 
-  containsNodeWithValue(value: number) {
+  containsNodeWithValue(value: number): boolean {
     // Write your code here.
+    let currNode = this.head;
+    while (currNode != null) {
+      if (currNode.value === value) {
+        return true;
+      }
+      currNode = currNode.next;
+    }
     return false;
+  }
+
+  describe(): void {
+    let currNode = this.head;
+    let output: number[] = [];
+    while (currNode != null) {
+      output.push(currNode.value);
+      currNode = currNode.next;
+    }
+    console.log(output.join(" <-> "));
+  }
+
+  bindNodes(nodeOne: Node, nodeTwo: Node): void {
+    nodeOne.next = nodeTwo;
+    nodeTwo.prev = nodeOne;
   }
 }
 
-function bindNodes(nodeOne: Node, nodeTwo: Node) {
-  nodeOne.next = nodeTwo;
-  nodeTwo.prev = nodeOne;
-}
-
+// Create initial nodes
 let one = new Node(1);
 let two = new Node(2);
 let three = new Node(3);
 let four = new Node(4);
 let five = new Node(5);
 
+// Create stand-alone Nodes
 let three2 = new Node(3);
 let three3 = new Node(3);
 let six = new Node(6);
 
-bindNodes(one, two);
-bindNodes(two, three);
-bindNodes(three, five);
-bindNodes(four, five);
+// Init Double Linked List
+let myLinkedList = new DoublyLinkedList();
 
-let myDoublyLinkedList = new DoublyLinkedList();
-myDoublyLinkedList.head = one;
-myDoublyLinkedList.tail = five;
+// Bind Initial Nodes
+myLinkedList.bindNodes(one, two);
+myLinkedList.bindNodes(two, three);
+myLinkedList.bindNodes(three, four);
+myLinkedList.bindNodes(four, five);
 
-console.log(myDoublyLinkedList);
+// Set Head and Tail
+myLinkedList.head = one;
+myLinkedList.tail = five;
+
+myLinkedList.describe();
+myLinkedList.setHead(four);
+myLinkedList.describe();
+myLinkedList.setTail(six);
+myLinkedList.describe();
