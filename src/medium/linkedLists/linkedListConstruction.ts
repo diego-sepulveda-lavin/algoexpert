@@ -69,6 +69,9 @@ export class DoublyLinkedList {
       this.head = node;
       this.tail = node;
     } else {
+      if (node === this.tail) {
+        this.tail = node.prev;
+      }
       node.prev && (node.prev.next = node.next);
       node.next && (node.next!.prev = node.prev);
       node.prev = null;
@@ -83,8 +86,15 @@ export class DoublyLinkedList {
     if (this.tail === null) {
       this.head = node;
       this.tail = node;
+    } else if (node === this.head) {
+      this.head = node.next;
+      this.head && (this.head.prev = null);
+      this.tail.next = node;
+      node.prev = this.tail;
+      this.tail = node;
+      this.tail.next = null;
     } else {
-      this.tail && (this.tail.next = node);
+      this.tail.next = node;
       node.next = null;
       node.prev = this.tail;
       this.tail = node;
@@ -93,9 +103,13 @@ export class DoublyLinkedList {
 
   insertBefore(node: Node, nodeToInsert: Node) {
     // Write your code here.
+    if (this.tail === nodeToInsert) {
+      this.tail = nodeToInsert.prev;
+    }
     if (node === this.head) {
       this.head = nodeToInsert;
     }
+
     nodeToInsert.prev && (nodeToInsert.prev.next = nodeToInsert.next);
     nodeToInsert.next && (nodeToInsert.next.prev = nodeToInsert.prev);
     nodeToInsert.prev = node.prev;
@@ -106,6 +120,10 @@ export class DoublyLinkedList {
 
   insertAfter(node: Node, nodeToInsert: Node) {
     // Write your code here.
+    if (this.head === nodeToInsert) {
+      this.head = nodeToInsert.next;
+      this.head && (this.head.prev = null);
+    }
     if (node === this.tail) {
       node.next = nodeToInsert;
       nodeToInsert.prev = node;
@@ -120,34 +138,48 @@ export class DoublyLinkedList {
 
   insertAtPosition(position: number, nodeToInsert: Node) {
     // Write your code here.
-    if (this.head === null) {
-      this.head = nodeToInsert;
-      this.tail = nodeToInsert;
-      return;
-    }
-
-    let currNode = this.head;
-    let currPos = 1;
-    while (currPos != position) {
-      currNode = currNode.next!;
-      currPos++;
-    }
-
-    if (position === 1) {
-      currNode!.prev = nodeToInsert;
-      nodeToInsert.next = currNode;
-      this.head = nodeToInsert;
-    } else {
-      this.insertBefore(currNode!, nodeToInsert);
-    }
-  }
+        if (this.head === null) {
+          this.head = nodeToInsert;
+          this.tail = nodeToInsert;
+          return;
+        }
+    
+        let currNode = this.head;
+        let currPos = 1;
+        while (currPos != position) {
+          currNode = currNode.next!;
+          currPos++;
+        }
+    
+        if (position === 1) {
+          nodeToInsert.prev && (nodeToInsert.prev.next = nodeToInsert.next);
+          nodeToInsert.next && (nodeToInsert.next.prev = nodeToInsert.prev);
+          currNode.prev = nodeToInsert;
+          nodeToInsert.next = currNode;
+          nodeToInsert.prev = null;
+          this.head = nodeToInsert;
+        } else if (nodeToInsert === this.head) {
+          this.head = nodeToInsert.next;
+          this.head && (this.head.prev = null);
+          currNode.prev && (currNode.prev.next = nodeToInsert);
+          nodeToInsert.prev = currNode.prev;
+          nodeToInsert.next = currNode;
+          currNode.prev = nodeToInsert;
+          return;
+        } else {
+          this.insertBefore(currNode!, nodeToInsert);
+        }
+      }
 
   removeNodesWithValue(value: number) {
     // Write your code here.
     let currNode = this.head;
     while (currNode != null) {
       if (currNode.value === value) {
-        if (currNode === this.head) {
+        if (currNode === this.head && currNode === this.tail) {
+          this.head = null;
+          this.tail = null;
+        } else if (currNode === this.head) {
           this.head = currNode.next;
           this.head && (this.head.prev = null);
         } else if (currNode === this.tail) {
@@ -215,11 +247,12 @@ let five = new Node(5);
 let three2 = new Node(3);
 let three3 = new Node(3);
 let six = new Node(6);
+let seven = new Node(7);
 
 // Init Double Linked List
 let myLinkedList = new DoublyLinkedList();
 
-// Bind Initial Nodes
+/* // Bind Initial Nodes
 myLinkedList.bindNodes(one, two);
 myLinkedList.bindNodes(two, three);
 myLinkedList.bindNodes(three, four);
@@ -244,4 +277,25 @@ myLinkedList.removeNodesWithValue(3);
 myLinkedList.describe();
 myLinkedList.remove(two);
 myLinkedList.describe();
-myLinkedList.containsNodeWithValue(5);
+myLinkedList.containsNodeWithValue(5); */
+
+myLinkedList.setHead(one);
+myLinkedList.describe();
+myLinkedList.insertAfter(one, two);
+myLinkedList.describe();
+myLinkedList.insertAfter(two, three);
+myLinkedList.describe();
+myLinkedList.insertAfter(three, four);
+myLinkedList.describe();
+myLinkedList.insertAfter(four, five);
+myLinkedList.describe();
+myLinkedList.insertAfter(five, six);
+myLinkedList.describe();
+myLinkedList.insertAfter(six, seven);
+myLinkedList.describe();
+myLinkedList.insertAtPosition(7, one);
+myLinkedList.describe();
+myLinkedList.insertAtPosition(1, one);
+myLinkedList.describe(); // 1 2 3 4 5 9 7
+myLinkedList.insertAtPosition(2, one); // 2 1 3 4 5 6 7
+myLinkedList.describe();
