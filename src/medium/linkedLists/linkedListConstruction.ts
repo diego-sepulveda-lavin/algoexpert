@@ -63,7 +63,8 @@ export class DoublyLinkedList {
     this.tail = null;
   }
 
-  setHead(node: Node) {
+  // O(1) Time | O(1) Space
+  setHead(node: Node): void {
     if (this.head === null) {
       this.head = node;
       this.tail = node;
@@ -72,7 +73,8 @@ export class DoublyLinkedList {
     this.insertBefore(this.head, node);
   }
 
-  setTail(node: Node) {
+  // O(1) Time | O(1) Space
+  setTail(node: Node): void {
     if (this.tail === null) {
       this.head = node;
       this.tail = node;
@@ -81,7 +83,8 @@ export class DoublyLinkedList {
     this.insertAfter(this.tail, node);
   }
 
-  insertBefore(node: Node, nodeToInsert: Node) {
+  // O(1) Time | O(1) Space
+  insertBefore(node: Node, nodeToInsert: Node): void {
     if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
     this.remove(nodeToInsert);
     nodeToInsert.prev = node.prev;
@@ -94,7 +97,8 @@ export class DoublyLinkedList {
     node.prev = nodeToInsert;
   }
 
-  insertAfter(node: Node, nodeToInsert: Node) {
+  // O(1) Time | O(1) Space
+  insertAfter(node: Node, nodeToInsert: Node): void {
     if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
     this.remove(nodeToInsert);
     nodeToInsert.prev = node;
@@ -107,7 +111,8 @@ export class DoublyLinkedList {
     node.next = nodeToInsert;
   }
 
-  insertAtPosition(position: number, nodeToInsert: Node) {
+  // O(p) Time | O(1) Space
+  insertAtPosition(position: number, nodeToInsert: Node): void {
     if (position === 1) {
       this.setHead(nodeToInsert);
       return;
@@ -126,7 +131,8 @@ export class DoublyLinkedList {
     }
   }
 
-  removeNodesWithValue(value: number) {
+  // O(n) Time | O(1) Space
+  removeNodesWithValue(value: number): void {
     let currNode = this.head;
     while (currNode != null) {
       let nodeToRemove = currNode;
@@ -135,19 +141,22 @@ export class DoublyLinkedList {
     }
   }
 
-  remove(node: Node) {
+  // O(1) Time | O(1) Space
+  remove(node: Node): void {
     if (node == this.head) this.head = node.next;
     if (node === this.tail) this.tail = node.prev;
     this.removeNodeBindings(node);
   }
 
-  removeNodeBindings(node: Node) {
+  // O(1) Time | O(1) Space
+  removeNodeBindings(node: Node): void {
     node.prev && (node.prev.next = node.next);
     node.next && (node.next.prev = node.prev);
     node.prev = null;
     node.next = null;
   }
 
+  // O(n) Time | O(1) Space
   containsNodeWithValue(value: number): boolean {
     let currNode = this.head;
     while (currNode != null) {
@@ -159,6 +168,7 @@ export class DoublyLinkedList {
     return false;
   }
 
+  // O(n) Time | O(n) Space
   describe(): void | null {
     let currNode = this.head;
     let output: number[] = [];
