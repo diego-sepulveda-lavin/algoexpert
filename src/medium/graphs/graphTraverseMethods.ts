@@ -11,8 +11,8 @@ export const graph = {
   f: [],
 };
 
-const depthFirstPrint = (graph: Graph, start: string) => {
-  const stack = [start];
+const depthFirstPrint = (graph: Graph, source: string) => {
+  const stack = [source];
 
   while (stack.length > 0) {
     const currNode = stack.pop();
@@ -26,8 +26,16 @@ const depthFirstPrint = (graph: Graph, start: string) => {
   }
 };
 
-const breadthFirstPrint = (graph: Graph, start: string) => {
-  const queue = [start];
+const depthFirstRecPrint = (graph: Graph, source: string) => {
+  console.log(source);
+  const neighbors = graph[source];
+  for (const neighbor of neighbors) {
+    depthFirstRecPrint(graph, neighbor);
+  }
+};
+
+const breadthFirstPrint = (graph: Graph, source: string) => {
+  const queue = [source];
 
   while (queue.length > 0) {
     const currNode = queue.shift();
@@ -41,5 +49,6 @@ const breadthFirstPrint = (graph: Graph, start: string) => {
   }
 };
 
-depthFirstPrint(graph, "a"); // acebdf
-breadthFirstPrint(graph, "a"); // abcdef
+//depthFirstPrint(graph, "a"); // acebdf
+depthFirstRecPrint(graph, "a"); // abdfce
+//breadthFirstPrint(graph, "a"); // abcdef
