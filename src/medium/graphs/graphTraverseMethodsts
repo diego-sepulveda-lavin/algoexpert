@@ -1,0 +1,45 @@
+interface Graph {
+  [key: string]: string[];
+}
+
+export const graph = {
+  a: ["b", "c"],
+  b: ["d"],
+  c: ["e"],
+  d: ["f"],
+  e: [],
+  f: [],
+};
+
+const depthFirstPrint = (graph: Graph, start: string) => {
+  const stack = [start];
+
+  while (stack.length > 0) {
+    const currNode = stack.pop();
+    console.log(currNode);
+    if (currNode) {
+      const neighbors = graph[currNode];
+      for (const neighbor of neighbors) {
+        stack.push(neighbor);
+      }
+    }
+  }
+};
+
+const breadthFirstPrint = (graph: Graph, start: string) => {
+  const queue = [start];
+
+  while (queue.length > 0) {
+    const currNode = queue.shift();
+    console.log(currNode);
+    if (currNode) {
+      const neighbors = graph[currNode];
+      for (const neighbor of neighbors) {
+        queue.push(neighbor);
+      }
+    }
+  }
+};
+
+depthFirstPrint(graph, "a"); // acebdf
+breadthFirstPrint(graph, "a"); // abcdef
