@@ -11,6 +11,7 @@ export const graph = {
   k: [],
 };
 
+// Depth First
 const hasPath = (graph: Graph, source: string, destination: string): boolean => {
   const stack = [source];
   while (stack.length > 0) {
@@ -27,12 +28,29 @@ const hasPath = (graph: Graph, source: string, destination: string): boolean => 
   return false;
 };
 
+// Depth First with recursive function
 const hasPathRec = (graph: Graph, source: string, destination: string): boolean => {
   if (source === destination) return true;
   const neighbors = graph[source];
   for (const neighbor of neighbors) {
     if (hasPathRec(graph, neighbor, destination) === true) {
       return true;
+    }
+  }
+  return false;
+};
+
+// Breadth First
+const hasPathBFS = (graph: Graph, source: string, destination: string) => {
+  const queue = [source];
+  while (queue.length > 0) {
+    const currNode = queue.shift();
+    if (currNode === destination) return true;
+    if (currNode) {
+      const neighbors = graph[currNode];
+      for (const neighbor of neighbors) {
+        queue.push(neighbor);
+      }
     }
   }
   return false;
@@ -47,3 +65,8 @@ console.log(hasPathRec(graph, "j", "h")); //true
 console.log(hasPathRec(graph, "f", "k")); // true
 console.log(hasPathRec(graph, "g", "k")); // false
 console.log(hasPathRec(graph, "k", "f")); // false
+console.log("----------------");
+console.log(hasPathBFS(graph, "j", "h")); //true
+console.log(hasPathBFS(graph, "f", "k")); // true
+console.log(hasPathBFS(graph, "g", "k")); // false
+console.log(hasPathBFS(graph, "k", "f")); // false
