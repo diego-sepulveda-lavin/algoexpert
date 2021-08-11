@@ -47,16 +47,17 @@ interface AdjancencyList {
 const BFS = (graph: AdjancencyList, start: string) => {
   const queue = [start];
   const visited = new Set();
+  visited.add(start);
 
   while (queue.length > 0) {
     const current = queue.shift();
-    if (!visited.has(current)) {
-      visited.add(current);
-      console.log(current);
-      if (current) {
-        const neighbors = graph[current];
-        for (const neighbor of neighbors) {
+    console.log(current);
+    if (current) {
+      const neighbors = graph[current];
+      for (const neighbor of neighbors) {
+        if (!visited.has(neighbor)) {
           queue.push(neighbor);
+          visited.add(neighbor);
         }
       }
     }
@@ -66,16 +67,17 @@ const BFS = (graph: AdjancencyList, start: string) => {
 const DFS = (graph: AdjancencyList, start: string) => {
   const stack = [start];
   const visited = new Set();
+  visited.add(start);
 
   while (stack.length > 0) {
     const current = stack.pop();
-    if (!visited.has(current)) {
-      visited.add(current);
-      console.log(current);
-      if (current) {
-        const neighbors = graph[current];
-        for (const neighbor of neighbors) {
+    console.log(current);
+    if (current) {
+      const neighbors = graph[current];
+      for (const neighbor of neighbors) {
+        if (!visited.has(neighbor)) {
           stack.push(neighbor);
+          visited.add(neighbor);
         }
       }
     }
@@ -83,5 +85,5 @@ const DFS = (graph: AdjancencyList, start: string) => {
 };
 
 //console.log(edgesToAdjacenyList(edgesList));
-//BFS(adjacencyList, "a"); // abcd
-DFS(adjacencyList, "a"); // acdb
+BFS(adjacencyList, "a"); // abcd
+//DFS(adjacencyList, "a"); // acdb
