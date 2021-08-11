@@ -7,23 +7,11 @@
 export const edges = [
   ["i", "j"],
   ["k", "i"],
-  //["k", "j"],
   ["m", "k"],
   ["k", "l"],
   ["o", "n"],
 ];
 
-/* 
-{
-  i: ["j", "k"],
-  j: ["i"],
-  k: ["i", "m", "l"],
-  m: ["k"],
-  l: ["k"],
-  o: ["n"],
-  n: ["o"],
-} 
-*/
 
 // Implemented with DFS iteratively, could also be DFS recursively or BFS iteratively
 const undirectedPath = (edges: string[][], nodeA: string, nodeB: string) => {
