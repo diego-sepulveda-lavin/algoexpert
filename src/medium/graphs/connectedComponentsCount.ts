@@ -52,4 +52,26 @@ const explore = (graph: Graph, current: string, visited: Set<string>) => {
   return true;
 };
 
-console.log(connectedComponentsCount(graph)); // 3
+const connectedComponentsCount2 = (graph: Graph) => {
+  const visited: Set<string> = new Set();
+  let count = 0;
+
+  for (const node in graph) {
+    const stack = [node];
+    if (!visited.has(node)) count++;
+    while (stack.length > 0) {
+      const current = stack.pop();
+      if (current && !visited.has(current)) {
+        const neighbors = graph[current];
+        for (const neighbor of neighbors) {
+          stack.push(String(neighbor));
+        }
+        visited.add(current);
+      }
+    }
+  }
+  return count;
+};
+
+//console.log(connectedComponentsCount(graph)); // 3
+console.log(connectedComponentsCount2(graph)); // 3
