@@ -33,18 +33,18 @@ const adjacencyList = {
 
 const largestComponent = (graph: AdjList): number => {
   const visited: Set<string> = new Set();
-  let largestComponent = 0;
+  let largestSize = 0;
 
   for (const node in graph) {
     if (!visited.has(node)) {
-      const currSize = dfs(graph, node, visited);
-      currSize > largestComponent && (largestComponent = currSize);
+      const currSize = dfsSize(graph, node, visited);
+      currSize > largestSize && (largestSize = currSize);
     }
   }
-  return largestComponent;
+  return largestSize;
 };
 
-const dfs = (graph: AdjList, start: string, visited: Set<string>): number => {
+const dfsSize = (graph: AdjList, start: string, visited: Set<string>): number => {
   const stack = [start];
   visited.add(start);
   let size = 1;

@@ -51,8 +51,8 @@ const bfs = (graph: AdjancencyList, start: string) => {
 
   while (queue.length > 0) {
     const current = queue.shift();
-    console.log(current);
     if (current) {
+      console.log(current);
       const neighbors = graph[current];
       for (const neighbor of neighbors) {
         if (!visited.has(neighbor)) {
@@ -72,8 +72,8 @@ const dfs = (graph: AdjancencyList, start: string) => {
 
   while (stack.length > 0) {
     const current = stack.pop();
-    console.log(current);
     if (current) {
+      console.log(current);
       const neighbors = graph[current];
       for (const neighbor of neighbors) {
         if (!visited.has(neighbor)) {
