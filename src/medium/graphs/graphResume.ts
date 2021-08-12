@@ -44,7 +44,7 @@ interface AdjancencyList {
 }
 
 // if BFS used on an undirected graph, it may result in an infinite loop. We can use a set to store visited nodes
-const BFS = (graph: AdjancencyList, start: string) => {
+const bfs = (graph: AdjancencyList, start: string) => {
   const queue = [start];
   const visited = new Set();
   visited.add(start);
@@ -65,7 +65,7 @@ const BFS = (graph: AdjancencyList, start: string) => {
 };
 
 // if DFS used on an undirected graph, it may result in an infinite loop. We can use a set to store visited nodes
-const DFS = (graph: AdjancencyList, start: string) => {
+const dfs = (graph: AdjancencyList, start: string) => {
   const stack = [start];
   const visited = new Set();
   visited.add(start);
@@ -85,17 +85,17 @@ const DFS = (graph: AdjancencyList, start: string) => {
   }
 };
 
-const DFSRec = (graph: AdjancencyList, source: string, visited: Set<string> = new Set()) => {
+const dfsRec = (graph: AdjancencyList, source: string, visited: Set<string> = new Set()) => {
   if (visited.has(source)) return;
   visited.add(source);
   console.log(source);
   const neighbors = graph[source];
   for (const neighbor of neighbors) {
-    DFSRec(graph, neighbor, visited);
+    dfsRec(graph, neighbor, visited);
   }
 };
 
 //console.log(edgesToAdjacenyList(edgesList));
-//BFS(adjacencyList, "a"); // abcd
-//DFS(adjacencyList, "a"); // acdb
-//DFSRec(adjacencyList, "a"); // abcd
+//bfs(adjacencyList, "a"); // abcd
+//dfs(adjacencyList, "a"); // acdb
+//dfsRec(adjacencyList, "a"); // abcd
