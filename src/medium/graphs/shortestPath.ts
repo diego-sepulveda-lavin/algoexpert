@@ -33,46 +33,39 @@ export const edges = [
 
 const shortestPath = (edgesList: string[][], start: string, end: string) => {
   const graph = edgesToAdjList(edgesList);
-  let hasPath = bfs(graph, start, end);
-  return hasPath;
-};
-
-const bfs = (graph: AdjList, start: string, end: string) => {
   const visited: Set<string> = new Set();
-  const queue = [start];
-  let hasPath = false;
+  const queue: [string, number][] = [[start, 0]];
   visited.add(start);
 
   while (queue.length > 0) {
     const current = queue.shift();
     if (current) {
-      console.log(current);
-
-      if (current === end) hasPath = true;
-      const neighbors = graph[current];
+      const [node, distance] = current;
+      if (node === end) return distance;
+      const neighbors = graph[node];
       for (const neighbor of neighbors) {
         if (!visited.has(neighbor)) {
           visited.add(neighbor);
-          queue.push(neighbor);
+          queue.push([neighbor, distance + 1]);
         }
       }
     }
   }
-
-  return hasPath;
+  return -1;
 };
 
 const edgesToAdjList = (edgesList: string[][]) => {
-  const adjacencyList: AdjList = {};
+  const graph: AdjList = {};
 
   for (const edge of edgesList) {
     const [a, b] = edge;
-    if (!(a in adjacencyList)) adjacencyList[a] = [];
-    if (!(b in adjacencyList)) adjacencyList[b] = [];
-    adjacencyList[a].push(b);
-    adjacencyList[b].push(a);
+    if (!(a in graph)) graph[a] = [];
+    if (!(b in graph)) graph[b] = [];
+    graph[a].push(b);
+    graph[b].push(a);
   }
-  return adjacencyList;
+
+  return graph;
 };
 
 console.log(shortestPath(edges, "w", "z"));
