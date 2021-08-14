@@ -27,7 +27,7 @@ const grid = [
   ["L", "L", "W", "W", "W"],
 ];
 
-const islandCount = (grid: string[][]) => {
+const islandCount = (grid: string[][]): number => {
   let islandCounter = 0;
   const visited: Set<string> = new Set();
 
@@ -41,7 +41,7 @@ const islandCount = (grid: string[][]) => {
   return islandCounter;
 };
 
-const exploreIsland = (grid: string[][], r: number, c: number, visited: Set<string>) => {
+const exploreIsland = (grid: string[][], r: number, c: number, visited: Set<string>): boolean => {
   const rowInBounds = 0 <= r && r < grid.length;
   const colInBounds = 0 <= c && c < grid[0].length;
   if (!rowInBounds || !colInBounds) return false;
@@ -52,10 +52,10 @@ const exploreIsland = (grid: string[][], r: number, c: number, visited: Set<stri
   if (visited.has(pos)) return false;
   visited.add(pos);
 
-  exploreIsland(grid, r - 1, c, visited);
-  exploreIsland(grid, r + 1, c, visited);
-  exploreIsland(grid, r, c - 1, visited);
-  exploreIsland(grid, r, c + 1, visited);
+  exploreIsland(grid, r - 1, c, visited); // up
+  exploreIsland(grid, r + 1, c, visited); // down
+  exploreIsland(grid, r, c - 1, visited); // left
+  exploreIsland(grid, r, c + 1, visited); // right
 
   return true;
 };
