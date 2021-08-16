@@ -37,7 +37,7 @@ const minimumIsland = (grid: string[][]) => {
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[r].length; c++) {
       const currSize = exploreIsland(grid, r, c, visited);
-      if (currSize < smallestIsland && currSize !== 0) {
+      if (currSize < smallestIsland && currSize > 0) {
         smallestIsland = currSize;
       }
     }
