@@ -72,5 +72,19 @@ export const grid2 = [
   [" ", " ", " ", " ", "W", " ", " "],
 ];
 
-console.log(findPath(grid1, "S", "E")); // true - 20
-console.log(findPath(grid2, "S", "E")); // false - 0
+export const grid3 = [
+  [" ", " ", "E"],
+  [" ", "W", "W"],
+  [" ", " ", " "],
+  ["W", "W", " "],
+  [" ", " ", " "],
+  [" ", "W", "W"],
+  [" ", " ", " "],
+  ["W", "W", " "],
+  [" ", " ", "S"],
+  [" ", " ", " "],
+];
+
+console.log("grid1", findPath(grid1, "S", "E")); // true - 20
+console.log("grid2", findPath(grid2, "S", "E")); // false - 0
+console.log("grid3", findPath(grid3, "S", "E")); // true - 16
