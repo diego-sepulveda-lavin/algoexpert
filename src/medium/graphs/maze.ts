@@ -29,11 +29,12 @@ const explore = (grid: string[][], r: number, c: number, visited: Set<string>, e
   if (!rowInBounds || !colInBounds) return false;
 
   if (grid[r][c] === "W") return false;
-  if (grid[r][c] === endSymbol) return true;
 
   const pos = r + "," + c;
   if (visited.has(pos)) return false;
   visited.add(pos);
+
+  if (grid[r][c] === endSymbol) return true;
 
   const up = explore(grid, r - 1, c, visited, endSymbol);
   const right = explore(grid, r, c + 1, visited, endSymbol);
