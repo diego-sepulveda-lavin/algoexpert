@@ -13,35 +13,43 @@ const findStart = (grid: string[][], startSymbol: string) => {
   return coords;
 };
 
-const hasPath = (grid: string[][], startSymbol: string, endSymbol: string) => {
+const findPath = (grid: string[][], startSymbol: string, endSymbol: string) => {
   const start = findStart(grid, startSymbol);
   const visited: Set<string> = new Set();
   const [r, c] = start;
-  const pathFound = explore(grid, r, c, visited, endSymbol);
+  let dist = 0;
+  const pathFound = explore(grid, r, c, visited, endSymbol, dist);
 
   return pathFound;
 };
 
-const explore = (grid: string[][], r: number, c: number, visited: Set<string>, endSymbol: string): boolean => {
+const explore = (
+  grid: string[][],
+  r: number,
+  c: number,
+  visited: Set<string>,
+  endSymbol: string,
+  dist: number
+): { hasPath: boolean; distance: number } => {
   const rowInBounds = r >= 0 && r < grid.length;
   const colInBounds = c >= 0 && c < grid[0].length;
 
-  if (!rowInBounds || !colInBounds) return false;
+  if (!rowInBounds || !colInBounds) return { hasPath: false, distance: 0 };
 
-  if (grid[r][c] === "W") return false;
+  if (grid[r][c] === "W") return { hasPath: false, distance: 0 };
 
   const pos = r + "," + c;
-  if (visited.has(pos)) return false;
+  if (visited.has(pos)) return { hasPath: false, distance: 0 };
   visited.add(pos);
 
-  if (grid[r][c] === endSymbol) return true;
+  if (grid[r][c] === endSymbol) return { hasPath: true, distance: dist };
 
-  const up = explore(grid, r - 1, c, visited, endSymbol);
-  const right = explore(grid, r, c + 1, visited, endSymbol);
-  const down = explore(grid, r + 1, c, visited, endSymbol);
-  const left = explore(grid, r, c - 1, visited, endSymbol);
+  const { hasPath: up, distance: upDist } = explore(grid, r - 1, c, visited, endSymbol, dist + 1);
+  const { hasPath: right, distance: rightDist } = explore(grid, r, c + 1, visited, endSymbol, dist + 1);
+  const { hasPath: down, distance: downDist } = explore(grid, r + 1, c, visited, endSymbol, dist + 1);
+  const { hasPath: left, distance: leftDist } = explore(grid, r, c - 1, visited, endSymbol, dist + 1);
 
-  return up || right || down || left;
+  return { hasPath: up || right || down || left, distance: upDist + rightDist + downDist + leftDist };
 };
 
 export const grid1 = [
@@ -64,5 +72,5 @@ export const grid2 = [
   [" ", " ", " ", " ", "W", " ", " "],
 ];
 
-console.log(hasPath(grid1, "S", "E")); // true
-console.log(hasPath(grid2, "S", "E")); // false
+console.log(findPath(grid1, "S", "E")); // true - 20
+console.log(findPath(grid2, "S", "E")); // false - 0
